@@ -10,7 +10,7 @@ Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
 Version:	0.6.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
@@ -83,18 +83,16 @@ Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
 %package mpeg-plugin
-Summary:	Zapping plugin for infrared control
-Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Summary:	Zapping plugin that saves video in MPEG format
+Summary(pl):	Wtyczka Zappingu do zapisu obrazu w formacie MPEG
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
 %description mpeg-plugin
-This package allows you to control Zapping with a LIRC-supported
-remote control.
+This package allows you to save video from TV in MPEG format.
 
 %description mpeg-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
+Ten pakiet pozwala na zapis obrazu z TV w formacie MPEG.
 
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
