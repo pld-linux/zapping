@@ -110,8 +110,8 @@ watching in TV. It will save the screenshots in JPEG format.
 Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
 telewizyjnego do pliku JPEG.
 
-%prep 
-%setup -q 
+%prep
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -126,7 +126,7 @@ intltoolize --copy --force
 %{__autoheader}
 %{__automake}
 %{__autoconf}
-%configure 
+%configure
 %{__make}
 
 %install
