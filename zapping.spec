@@ -32,7 +32,6 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	python-devel
 %ifarch %{ix86}
-BuildRequires:	mp1e-devel
 BuildRequires:	rte-devel >= 0.5
 %endif
 BuildRequires:	zvbi-devel >= 0.2.3
