@@ -15,7 +15,9 @@ Patch3:		%{name}-AS_.patch
 Patch4:		%{name}-host_alias.patch
 URL:		http://zapping.sourceforge.net/
 #BuildRequires:	gettext-devel
+BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	gnome-libs-devel >= 1.0.40
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libjpeg-devel
@@ -154,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	localedir=$RPM_BUILD_ROOT%{_localedir}
-mv plugins/alirc/README{.alirc,}
+mv -f plugins/alirc/README{.alirc,}
 gzip -9nf AUTHORS THANKS NEWS README* TODO BUGS plugins/{a,}lirc/README
 
 %find_lang %{name} --with-gnome
