@@ -15,6 +15,7 @@ Source0:	http://dl.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
+Patch3:		%{name}-alpha-build.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -105,12 +106,12 @@ This package allows you to display teletext pages.
 %description teletext-plugin -l pl
 Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
 
-
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 glib-gettextize --copy --force

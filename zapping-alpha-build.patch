@@ -1,0 +1,122 @@
+diff -ur zapping-0.8.orig/libvbi/Makefile.am zapping-0.8/libvbi/Makefile.am
+--- zapping-0.8.orig/libvbi/Makefile.am	2004-11-11 07:17:51.000000000 +0100
++++ zapping-0.8/libvbi/Makefile.am	2004-12-09 15:58:01.000000000 +0100
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-noinst_LIBRARIES = libvbi.a
++noinst_LTLIBRARIES = libvbi.la
+ 
+ BUILT_SOURCES = \
+ 	wstfont2.xbm
+@@ -14,7 +14,7 @@
+ 
+ INCLUDES = -I$(top_srcdir) -D_GNU_SOURCE -D_REENTRANT $(UNICODE_CFLAGS)
+ 
+-libvbi_a_SOURCES = \
++libvbi_la_SOURCES = \
+ 	bcd.c bcd.h \
+ 	cache.c cache.h cache-priv.h \
+ 	conv.c conv.h \
+diff -ur zapping-0.8.orig/libvbi/Makefile.in zapping-0.8/libvbi/Makefile.in
+--- zapping-0.8.orig/libvbi/Makefile.in	2004-11-11 15:46:56.000000000 +0100
++++ zapping-0.8/libvbi/Makefile.in	2004-12-09 15:59:32.000000000 +0100
+@@ -236,7 +236,7 @@
+ sysconfdir = @sysconfdir@
+ target_alias = @target_alias@
+ 
+-noinst_LIBRARIES = libvbi.a
++noinst_LTLIBRARIES = libvbi.la
+ 
+ BUILT_SOURCES = \
+ 	wstfont2.xbm
+@@ -252,7 +252,7 @@
+ 
+ INCLUDES = -I$(top_srcdir) -D_GNU_SOURCE -D_REENTRANT $(UNICODE_CFLAGS)
+ 
+-libvbi_a_SOURCES = \
++libvbi_la_SOURCES = \
+ 	bcd.c bcd.h \
+ 	cache.c cache.h cache-priv.h \
+ 	conv.c conv.h \
+@@ -288,16 +288,16 @@
+ CONFIG_CLEAN_FILES =
+ LIBRARIES = $(noinst_LIBRARIES)
+ 
+-libvbi_a_AR = $(AR) cru
+-libvbi_a_LIBADD =
+-am_libvbi_a_OBJECTS = bcd.$(OBJEXT) cache.$(OBJEXT) conv.$(OBJEXT) \
++libvbi_la_AR = $(AR) cru
++libvbi_la_LIBADD =
++am_libvbi_la_OBJECTS = bcd.$(OBJEXT) cache.$(OBJEXT) conv.$(OBJEXT) \
+ 	event.$(OBJEXT) exp-gfx.$(OBJEXT) exp-html.$(OBJEXT) \
+ 	exp-txt.$(OBJEXT) exp-vtx.$(OBJEXT) export.$(OBJEXT) \
+ 	hamm.$(OBJEXT) image_format.$(OBJEXT) lang.$(OBJEXT) \
+ 	link.$(OBJEXT) misc.$(OBJEXT) network.$(OBJEXT) \
+ 	packet-830.$(OBJEXT) search.$(OBJEXT) teletext.$(OBJEXT) \
+ 	teletext_decoder.$(OBJEXT) top_title.$(OBJEXT) ure.$(OBJEXT)
+-libvbi_a_OBJECTS = $(am_libvbi_a_OBJECTS)
++libvbi_la_OBJECTS = $(am_libvbi_la_OBJECTS)
+ 
+ DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
+ depcomp = $(SHELL) $(top_srcdir)/depcomp
+@@ -320,9 +320,9 @@
+ CCLD = $(CC)
+ LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+ 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+-DIST_SOURCES = $(libvbi_a_SOURCES)
++DIST_SOURCES = $(libvbi_la_SOURCES)
+ DIST_COMMON = Makefile.am Makefile.in
+-SOURCES = $(libvbi_a_SOURCES)
++SOURCES = $(libvbi_la_SOURCES)
+ 
+ all: $(BUILT_SOURCES)
+ 	$(MAKE) $(AM_MAKEFLAGS) all-am
+@@ -337,10 +337,10 @@
+ 
+ clean-noinstLIBRARIES:
+ 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+-libvbi.a: $(libvbi_a_OBJECTS) $(libvbi_a_DEPENDENCIES) 
+-	-rm -f libvbi.a
+-	$(libvbi_a_AR) libvbi.a $(libvbi_a_OBJECTS) $(libvbi_a_LIBADD)
+-	$(RANLIB) libvbi.a
++libvbi.la: $(libvbi_la_OBJECTS) $(libvbi_la_DEPENDENCIES) 
++	-rm -f libvbi.la
++	$(libvbi_la_AR) libvbi.la $(libvbi_la_OBJECTS) $(libvbi_la_LIBADD)
++	$(RANLIB) libvbi.la
+ 
+ mostlyclean-compile:
+ 	-rm -f *.$(OBJEXT) core *.core
+diff -ur zapping-0.8.orig/plugins/teletext/Makefile.am zapping-0.8/plugins/teletext/Makefile.am
+--- zapping-0.8.orig/plugins/teletext/Makefile.am	2004-10-30 05:58:24.000000000 +0200
++++ zapping-0.8/plugins/teletext/Makefile.am	2004-12-09 16:00:26.000000000 +0100
+@@ -19,7 +19,7 @@
+ 	$(PLUGIN_DEFAULT_FLAGS) -Wunused-function
+ 
+ libteletext_zapping_la_LIBADD = \
+-	$(top_builddir)/libvbi/libvbi.a \
++	$(top_builddir)/libvbi/libvbi.la \
+ 	$(PTHREAD_LIB) $(PNG_LIB) $(UNICODE_LIBS)
+ 
+ # must prevent link conflict with libzvbi 0.2
+diff -ur zapping-0.8.orig/plugins/teletext/Makefile.in zapping-0.8/plugins/teletext/Makefile.in
+--- zapping-0.8.orig/plugins/teletext/Makefile.in	2004-11-11 15:47:02.000000000 +0100
++++ zapping-0.8/plugins/teletext/Makefile.in	2004-12-09 16:00:36.000000000 +0100
+@@ -257,7 +257,7 @@
+ 
+ 
+ libteletext_zapping_la_LIBADD = \
+-	$(top_builddir)/libvbi/libvbi.a \
++	$(top_builddir)/libvbi/libvbi.la \
+ 	$(PTHREAD_LIB) $(PNG_LIB) $(UNICODE_LIBS)
+ 
+ subdir = plugins/teletext
+@@ -268,7 +268,7 @@
+ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ 
+ libteletext_zapping_la_LDFLAGS =
+-libteletext_zapping_la_DEPENDENCIES = $(top_builddir)/libvbi/libvbi.a
++libteletext_zapping_la_DEPENDENCIES = $(top_builddir)/libvbi/libvbi.la
+ am_libteletext_zapping_la_OBJECTS = bookmark.lo export.lo main.lo \
+ 	preferences.lo search.lo toolbar.lo view.lo window.lo
+ libteletext_zapping_la_OBJECTS = $(am_libteletext_zapping_la_OBJECTS)
