@@ -5,4 +5,4 @@
  Terminal=false
  StartupNotify=true
 -Categories=GNOME;Application;Multimedia;AudioVideo;Video;TV;
-+Categories=GTK;GNOME;Multimedia;AudioVideo;Video;TV;
++Categories=GTK;GNOME;Video;TV;
