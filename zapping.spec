@@ -1,4 +1,5 @@
 Summary:	a TV viewer for Gnome
+Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
 Version:	0.5.9
 Release:	0
@@ -27,6 +28,11 @@ to CDE and KDE, but GNOME is based completely on free software.
 
 This is a TV viewer for the GNOME desktop. It has all the needed
 features, plus extensibility through a plugin system.
+
+%description -l pl
+Zapping to program do ogl±dania telewizji dla ¶rodowiska GNOME. Ma
+wszystkie potrzebne funkcje oraz oferuje mo¿liwo¶æ rozszerzania
+funkcjonalno¶ci przez system wtyczek (pluginów).
 
 %prep
 %setup -q
