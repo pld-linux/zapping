@@ -1,15 +1,15 @@
---- zapping-0.7cvs6/configure.in.orig	2003-12-17 07:34:24.000000000 +0100
-+++ zapping-0.7cvs6/configure.in	2004-04-10 13:51:52.385406998 +0200
-@@ -604,7 +604,7 @@
-   -DPACKAGE_DATA_DIR=\\\"\${prefix}/\${DATADIRNAME}\\\" \
-   -DPACKAGE_LOCALE_DIR=\\\"\${prefix}/\${DATADIRNAME}/locale\\\" \
-   -DPACKAGE_PIXMAPS_DIR=\\\"\${prefix}/\${DATADIRNAME}/pixmaps/\${PACKAGE}\\\"\
+--- zapping-0.7.1/configure.in.orig	2004-09-14 06:46:27.000000000 +0200
++++ zapping-0.7.1/configure.in	2004-09-19 12:51:19.633035072 +0200
+@@ -626,7 +626,7 @@
+   -DPACKAGE_DATA_DIR=\\\"\${datadir}\\\" \
+   -DPACKAGE_LOCALE_DIR=\\\"\${datadir}/locale\\\" \
+   -DPACKAGE_PIXMAPS_DIR=\\\"\${datadir}/pixmaps/\${PACKAGE}\\\"\
 -  -DPACKAGE_LIB_DIR=\\\"\${prefix}/lib/\${PACKAGE}\\\" \
-+  -DPACKAGE_LIB_DIR=\\\"\${libdir}/\${PACKAGE}\\\" \
++  -DPACKAGE_LIB_DIR=\\\"\${prefix}/\${PACKAGE}\\\" \
    -DPACKAGE_ZSFB_DIR=\\\"\${DESTDIR}\${sbindir}\\\" \
  "
  
-@@ -614,7 +614,7 @@
+@@ -636,7 +636,7 @@
  PACKAGE_PIXMAPS_DIR="\${prefix}/\${DATADIRNAME}/pixmaps/\${PACKAGE}"
  AC_SUBST(PACKAGE_PIXMAPS_DIR)
  
