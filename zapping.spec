@@ -20,6 +20,7 @@ Patch4:		%{name}-desktopfile.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	artsc-devel
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.4.0.1
