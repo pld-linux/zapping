@@ -84,18 +84,16 @@ Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
 %package mpeg-plugin
-Summary:	Zapping plugin for infrared control
-Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Summary:	Zapping plugin that saves video in MPEG format
+Summary(pl):	Wtyczka Zappingu do zapisu obrazu w formacie MPEG
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
 %description mpeg-plugin
-This package allows you to control Zapping with a LIRC-supported
-remote control.
+This package allows you to save video from TV in MPEG format.
 
 %description mpeg-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
+Ten pakiet pozwala na zapis obrazu z TV w formacie MPEG.
 
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
@@ -118,7 +116,6 @@ telewizyjnego do pliku JPEG.
 %patch2 -p1
 
 %build
-
 echo 'all install:' > plugins/template/Makefile.am
 glib-gettextize --copy --force
 intltoolize --copy --force
