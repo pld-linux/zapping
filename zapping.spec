@@ -52,8 +52,8 @@ Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
 %description alirc-plugin
-This package allows you to control Zapping with a LIRC-supported remote
-control.
+This package allows you to control Zapping with a LIRC-supported
+remote control.
 
 %description alirc-plugin -l pl
 Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
@@ -67,8 +67,8 @@ Requires:	%{name} = %{version}
 Requires:	lirc
 
 %description lirc-plugin
-This package allows you to control Zapping with a LIRC-supported remote
-control.
+This package allows you to control Zapping with a LIRC-supported
+remote control.
 
 %description lirc-plugin -l pl
 Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
@@ -81,8 +81,8 @@ Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
 %description mpeg-plugin
-This package allows you to control Zapping with a LIRC-supported remote
-control.
+This package allows you to control Zapping with a LIRC-supported
+remote control.
 
 %description mpeg-plugin -l pl
 Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
@@ -99,8 +99,8 @@ You can use this plugin to take screenshots of what you are actually
 watching in TV. It will save the screenshots in JPEG format.
 
 %description screenshot-plugin -l pl
-Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu telewizyjnego
-do pliku JPEG.
+Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
+telewizyjnego do pliku JPEG.
 
 %prep
 %setup -q
