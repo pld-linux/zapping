@@ -61,5 +61,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/zapping/lib*so*
 
 %{_datadir}/zapping/*.glade
-%{_datadir}/pixmaps/zapping
+%{_pixmapsdir}/zapping
 %{_applnkdir}/Multimedia/zapping.desktop
