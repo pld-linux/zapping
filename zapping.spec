@@ -36,6 +36,7 @@ BuildRequires:	python-devel
 BuildRequires:	rte-devel >= 0.5
 %endif
 BuildRequires:	zvbi-devel >= 0.2.3
+Requires(post): scrollkeeper
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_plugindir	%{_libdir}/zapping/plugins
