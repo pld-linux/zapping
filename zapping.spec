@@ -1,7 +1,7 @@
+Summary:	a TV viewer for Gnome
 Name:		zapping
 Version:	0.5.2
 Release:	1
-Summary:	a TV viewer for Gnome
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
