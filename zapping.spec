@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20030126
+%define		snap	20030131
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
