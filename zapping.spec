@@ -113,7 +113,7 @@ rm -f missing
 libtoolize --copy --force
 aclocal -I %{_aclocaldir}/gnome
 autoconf
-automake -a -c
+automake -a -c -f
 # We don't want dummy plugins
 echo 'all install:' > plugins/template/Makefile.in
 %configure \
