@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20030223
+%define		snap	20030326
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
@@ -142,6 +142,9 @@ ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 cp -f plugins/alirc/README{.alirc,}
 mv $RPM_BUILD_ROOT%{_datadir}/zapping/gnome-television.png \
    $RPM_BUILD_ROOT%{_pixmapsdir}
+
+# Remove useless *.la files
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
 
 %find_lang %{name} --with-gnome
 
