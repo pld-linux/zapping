@@ -1,0 +1,15 @@
+--- zapping-0.6.0.orig/configure.in	Wed Sep 12 15:06:05 2001
++++ zapping-0.6.0/configure.in	Wed Sep 12 15:06:41 2001
+@@ -262,10 +262,10 @@
+ YUV2RGB_MMX=""
+ HAVE_MMX="no"
+ ARCH_CFLAGS=""
+-case "$host_alias" in
++case "$host" in
+ i?86-* | k?-*) dnl catch i386,i486,i586,i686,k6,k7
+ 	AC_DEFINE(__i386__) 
+-	case "$host_alias" in
++	case "$host" in
+ 		i386-*) dnl who are we kidding?
+ 			HAVE_MMX="yes"			
+ 			ARCH_CFLAGS="-march=i386";;
