@@ -2,8 +2,8 @@
 Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
-Version:	0.6.1
-Release:	2
+Version:	0.6.2
+Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(de):	X11/Applikationen/Multimedia
@@ -12,8 +12,6 @@ Source0:	http://prdownloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-lirc-path.patch
 Patch2:		%{name}-am15.patch
-Patch3:		%{name}-ac.patch
-Patch4:		%{name}-interface.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildRequires:	autoconf
@@ -98,22 +96,6 @@ control.
 Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
-%package parrot-plugin
-Summary:	Zapping plugin for infrared control
-Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
-Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
-Requires:	%{name} = %{version}
-
-%description parrot-plugin
-This package allows you to control Zapping with a LIRC-supported remote
-control.
-
-%description parrot-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
-
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
 Summary(pl):	Wtyczka Zappinga do robienia zrzutów ekranu
@@ -135,8 +117,6 @@ do pliku JPEG.
 %patch0 -p1
 %patch1 -p0
 %patch2 -p1
-%patch3 -p1
-%patch4	-p1
 
 %build
 rm -f missing
@@ -201,13 +181,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/zapping/plugins/libmpeg.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libmpeg.zapping.so.*.*
 %{_datadir}/zapping/mpeg_properties.glade
-
-# Compiles, doesn't work?
-%files parrot-plugin
-%defattr(644,root,root,755)
-%{_libdir}/zapping/plugins/libparrot.zapping.so
-%attr(0755,root,root) %{_libdir}/zapping/plugins/libparrot.zapping.so.*.*
-%{_datadir}/zapping/parrot.glade
 
 %files screenshot-plugin
 %defattr(644,root,root,755)
