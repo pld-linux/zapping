@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20030216
+%define		snap	20030223
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
@@ -178,10 +178,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc plugins/lirc/README
 %endif
 
-#%files mpeg-plugin
-#%defattr(644,root,root,755)
-#%{_plugindir}/libmpeg.zapping.so
-#%attr(0755,root,root) %{_plugindir}/libmpeg.zapping.so.*.*
+%files mpeg-plugin
+%defattr(644,root,root,755)
+%{_plugindir}/libmpeg.zapping.so
+%attr(0755,root,root) %{_plugindir}/libmpeg.zapping.so.*.*
 
 %files screenshot-plugin
 %defattr(644,root,root,755)
