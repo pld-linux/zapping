@@ -30,7 +30,6 @@ BuildRequires:	libpng-devel
 %{?with_lirc:BuildRequires:	lirc-devel}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
-BuildRequires:	mp1e-devel
 BuildRequires:	python-devel
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
