@@ -1,12 +1,13 @@
 Summary:	a TV viewer for Gnome
 Name:		zapping
-Version:	0.5.4
-Release:	3
+Version:	0.5.9
+Release:	0
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(de):	X11/Applikationen/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
+Patch0:		%{name}-%{version}-update.patch
 URL:		http://zapping.sourceforge.net
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-libs-devel >= 1.0.40
@@ -29,6 +30,7 @@ features, plus extensibility through a plugin system.
 
 %prep
 %setup -q
+#%patch0 -p1
 
 %build
 gettextize --copy --force
