@@ -2,6 +2,10 @@
 # Conditional build:
 # _without_lirc - disables LIRC
 #
+%farch sparc sparcv9 sparc64
+%define		_without_lirc		1
+%endif
+
 Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
