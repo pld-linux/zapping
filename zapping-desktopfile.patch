@@ -5,7 +5,7 @@ diff -Nur zapping-0.7.0/zapping.desktop.in zapping-0.7.0.new/zapping.desktop.in
  Encoding=UTF-8
  _Name=Zapping
  Type=Application
-+Categories=GNOME;Application;AudioVideo
++Categories=GTK;GNOME;Application;Video;TV;
  _Comment=TV viewer
  Exec=zapping
  Icon=zapping/gnome-television.png
