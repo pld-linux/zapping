@@ -115,6 +115,8 @@ telewizyjnego do pliku JPEG.
 rm -f missing
 libtoolize --copy --force
 aclocal -I %{_aclocaldir}/gnome
+# Temporary hack for autoheader
+echo 'AH_OUTPUT([HAVE_LIBSM], [#undef HAVE_LIBSM])' >> configure.in
 %{__autoconf}
 %{__automake}
 # We don't want dummy plugins
@@ -135,7 +137,6 @@ ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
 mv -f plugins/alirc/README{.alirc,}
 
-gzip -9nf AUTHORS THANKS NEWS README* TODO BUGS plugins/{a,}lirc/README
 
 %find_lang %{name} --with-gnome
 
@@ -144,7 +145,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *.gz
+%doc AUTHORS THANKS NEWS README* TODO BUGS
 %attr(0755,root,root) %{_bindir}/zapping
 %attr(0755,root,root) %{_bindir}/zapzilla
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
@@ -160,14 +161,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/zapping/plugins/libalirc.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libalirc.zapping.so.*.*
-%doc plugins/alirc/*.gz
+%doc plugins/alirc/README
 %endif
 
 %files lirc-plugin
 %defattr(644,root,root,755)
 %{_libdir}/zapping/plugins/liblirc.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/liblirc.zapping.so.*.*
-%doc plugins/lirc/*.gz
+%doc plugins/lirc/README
 
 %files mpeg-plugin
 %defattr(644,root,root,755)
