@@ -27,12 +27,12 @@ BuildRequires:	libglade2-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.4.0.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	mp1e-devel
 %{?with_lirc:BuildRequires:	lirc-devel}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	python-devel
 %ifarch %{ix86}
+BuildRequires:	mp1e-devel
 BuildRequires:	rte-devel >= 0.5
 %endif
 BuildRequires:	zvbi-devel >= 0.2.3
