@@ -1,0 +1,24 @@
+--- zapping-0.6.0.orig/configure.in	Sat Aug 25 01:23:13 2001
++++ zapping-0.6.0/configure.in	Tue Sep 11 12:18:56 2001
+@@ -296,16 +296,16 @@
+ 
+ if test "x$HAVE_MMX" = "xyes"; then
+ 	AC_DEFINE(USE_MMX)
+-	AC_PATH_PROG(AS_LOCATION, "as")
+-	if test "x$AS_LOCATION" != "x"; then
+-		AS_VERSION=`$AS_LOCATION --version | grep GNU`
+-		if test "x$AS_VERSION" != "x"; then
++	AC_PATH_PROG(ASLOCATION, "as")
++	if test "x$ASLOCATION" != "x"; then
++		ASVERSION=`$ASLOCATION --version | grep GNU`
++		if test "x$ASVERSION" != "x"; then
+ 			AC_DEFINE(HAVE_GAS)
+ 		fi
+ 	fi
+ fi
+ 
+-AM_CONDITIONAL(BUILD_GEN_CONV, test "x$AS_VERSION" != "x")
++AM_CONDITIONAL(BUILD_GEN_CONV, test "x$ASVERSION" != "x")
+ 
+ AC_SUBST(ARCH_CFLAGS)
+ 
