@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	Multimediadir=%{_applnkdir}/Multimedia
 
-strip --strip-uneeded $RPM_BUILD_ROOT%{_datadir}/zapping/plugins/*.zapping.so*
+strip --strip-unneeded $RPM_BUILD_ROOT%{_datadir}/zapping/plugins/*.zapping.so*
 
 gzip -9nf AUTHORS THANKS ChangeLog README README.plugins TODO BUGS
 
