@@ -1,24 +1,32 @@
-Summary:	a TV viewer for Gnome
+Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
-Version:	0.5.9
-Release:	0
+Version:	0.5.92
+Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(de):	X11/Applikationen/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-%{version}-update.patch
-URL:		http://zapping.sourceforge.net
-BuildRequires:	gettext-devel
+Patch0:		%{name}-make.patch
+Patch1:		%{name}-lirc-path.patch
+URL:		http://zapping.sourceforge.net/
+#BuildRequires:	gettext-devel
+BuildRequires:	automake
 BuildRequires:	gnome-libs-devel >= 1.0.40
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libjpeg-devel
-BuildRequires:	libxml-devel >= 1.4.0
+BuildRequires:	libpng-devel
+BuildRequires:	libxml-devel >= 1.7.3
 BuildRequires:	libglade-devel >= 0.9
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRequires:	libunicode-devel >= 0.4
+BuildRequires:	gdk-pixbuf-devel >= 0.8
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
+%define		_bindir		%{_prefix}/bin
+%define		_libdir		%{_prefix}/lib
+%define		_datadir	%{_prefix}/share
 
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
@@ -34,27 +42,59 @@ Zapping to program do ogl±dania telewizji dla ¶rodowiska GNOME. Ma
 wszystkie potrzebne funkcje oraz oferuje mo¿liwo¶æ rozszerzania
 funkcjonalno¶ci przez system wtyczek (pluginów).
 
+%package lirc-plugin
+Summary:	Zapping plugin for infrared control
+Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Group:		X11/Applications/Multimedia
+Group(de):	X11/Applikationen/Multimedia
+Group(pl):	X11/Aplikacje/Multimedia
+Requires:	%{name} = %{version}
+Requires:	lirc
+
+%description lirc-plugin
+This package allows you to control Zapping with a LIRC-supported remote
+control.
+
+%description lirc-plugin -l pl
+Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
+obs³ugiwanym przez LIRC.
+
+%package screenshot-plugin
+Summary:	Zapping plugin for taking screenshots
+Summary(pl):	Wtyczka Zappinga do robienia zrzutów ekranu
+Group:		X11/Applications/Multimedia
+Group(de):	X11/Applikationen/Multimedia
+Group(pl):	X11/Aplikacje/Multimedia
+Requires:	%{name} = %{version}
+
+%description screenshot-plugin
+You can use this plugin to take screenshots of what you are actually
+watching in TV. It will save the screenshots in JPEG format.
+
+%description screenshot-plugin -l pl
+Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu telewizyjnego
+do pliku JPEG.
+
 %prep
 %setup -q
-#%patch0 -p1
+%patch0 -p1
+%patch1 -p0
 
 %build
-gettextize --copy --force
-autoconf
-%configure \
+automake -a -c
+%configure2_13 \
 	--without-included-gettext
-%{__make} plugindir=%{_libdir}/zapping
+# We don't want dummy plugins
+echo 'all install:' > plugins/template/Makefile
+echo 'all install:' > plugins/mpeg/Makefile
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
-	INSTALL_PROGRAM="install" \
 	DESTDIR=$RPM_BUILD_ROOT \
-	plugindir=%{_libdir}/zapping \
-	Multimediadir=%{_applnkdir}/Multimedia
-
-gzip -9nf AUTHORS THANKS ChangeLog README README.plugins TODO BUGS
+	localedir=$RPM_BUILD_ROOT%{_localedir}
+gzip -9nf AUTHORS THANKS NEWS README* TODO BUGS plugins/lirc/README
 
 %find_lang %{name} --with-gnome
 
@@ -66,8 +106,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(0755,root,root) %{_bindir}/zapping
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
-%attr(0755,root,root) %{_libdir}/zapping/lib*so*
-
+%dir %{_libdir}/zapping
+%dir %{_libdir}/zapping/plugins
 %{_datadir}/zapping/*.glade
 %{_pixmapsdir}/zapping
 %{_applnkdir}/Multimedia/zapping.desktop
+
+%files lirc-plugin
+%defattr(644,root,root,755)
+%{_libdir}/zapping/plugins/liblirc.zapping.so
+%attr(0755,root,root) %{_libdir}/zapping/plugins/liblirc.zapping.so.*.*
+%doc plugins/lirc/*.gz
+
+%files screenshot-plugin
+%defattr(644,root,root,755)
+%{_libdir}/zapping/plugins/libscreenshot.zapping.so
+%attr(0755,root,root) %{_libdir}/zapping/plugins/libscreenshot.zapping.so.*.*
