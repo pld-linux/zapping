@@ -113,7 +113,7 @@ telewizyjnego do pliku JPEG.
 
 %build
 rm -f missing
-libtoolize --copy --force
+%{__libtoolize}
 aclocal -I %{_aclocaldir}/gnome
 # Temporary hack for autoheader
 echo 'AH_OUTPUT([HAVE_LIBSM], [#undef HAVE_LIBSM])' >> configure.in
