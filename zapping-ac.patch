@@ -1,0 +1,12 @@
+diff -urN zapping-0.6.1.org/configure.in zapping-0.6.1/configure.in
+--- zapping-0.6.1.org/configure.in	Sun Oct 21 19:54:05 2001
++++ zapping-0.6.1/configure.in	Sun Oct 21 20:03:29 2001
+@@ -369,7 +369,7 @@
+ chmod 0744 clean.pl
+ 
+ CFLAGS=`./clean.pl $CFLAGS`
+-COMMON_INCLUDES=`./clean.pl $X_CFLAGS $GNOME_INCLUDEDIR $GDK_PIXBUF_CFLAGS $UNICODE_CFLAGS $LIBXML_CFLAGS $CPPFLAGS`
++COMMON_INCLUDES=`./clean.pl $X_CFLAGS $GNOME_INCLUDEDIR $GDK_PIXBUF_CFLAGS $UNICODE_CFLAGS $LIBXML_CFLAGS $CPPFLAGS $LIBGLADE_CFLAGS`
+ CPPFLAGS=""
+ AC_SUBST(COMMON_INCLUDES)
+ 
