@@ -13,7 +13,7 @@ Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.7.0
-Release:	0.%{snap}.1
+Release:	0.%{snap}.2
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	%{name}-%{version}-%{snap}.tar.bz2
@@ -22,6 +22,7 @@ Patch0:		%{name}-suid.patch
 Patch1:		%{name}-lirc.patch
 Patch2:		%{name}-configure.patch
 Patch3:		%{name}-nooldlibxml.patch
+Patch4:		%{name}-desktopfile.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -117,6 +118,7 @@ telewizyjnego do pliku JPEG.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 echo 'all install:' > plugins/template/Makefile.am
