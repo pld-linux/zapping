@@ -1,11 +1,7 @@
-diff -Nur zapping-0.7.0/zapping.desktop.in zapping-0.7.0.new/zapping.desktop.in
---- zapping-0.7.0/zapping.desktop.in	2003-09-11 09:19:13.000000000 +0200
-+++ zapping-0.7.0.new/zapping.desktop.in	2003-10-28 16:37:41.000000000 +0100
-@@ -3,6 +3,7 @@
- Encoding=UTF-8
- _Name=Zapping
+--- zapping-0.7.3/zapping.desktop.in.orig	2004-10-04 08:26:45.000000000 +0200
++++ zapping-0.7.3/zapping.desktop.in	2004-10-11 21:20:24.771640152 +0200
+@@ -5,3 +5,4 @@
  Type=Application
-+Categories=GTK;GNOME;Video;TV;
- _Comment=TV viewer
  Exec=zapping
  Icon=zapping/gnome-television.png
++Categories=GTK;GNOME;Video;TV;
