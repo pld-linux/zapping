@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
-Source0:	http://download.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
 URL:		http://zapping.sourceforge.net
 BuildRequires:	libxml-devel >= 1.4.0
 BuildRequires:	libglade-devel >= 0.9
