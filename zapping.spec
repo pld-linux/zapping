@@ -3,7 +3,7 @@ Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
 Version:	0.6.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://prdownloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
@@ -24,7 +24,9 @@ BuildRequires:	libglade-devel >= 0.9
 BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	gdk-pixbuf-devel >= 0.8
 BuildRequires:	pam-devel
+%ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.4
+%endif
 BuildRequires:	zvbi-devel
 %{!?_with_lirc:BuildRequires: lirc-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
