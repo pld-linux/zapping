@@ -1,12 +1,15 @@
+#
+# Conditional build:
 # _without_lirc - disables LIRC
+#
 Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
 Version:	0.6.4
-Release:	3
+Release:	4
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	http://prdownloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-lirc-path.patch
 Patch2:		%{name}-am15.patch
@@ -14,21 +17,21 @@ URL:		http://zapping.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	gdk-pixbuf-devel >= 0.8
 BuildRequires:	gnome-libs-devel >= 1.0.40
 BuildRequires:	gtk+-devel >= 1.2.6
+BuildRequires:	libglade-gnome-devel >= 0.9
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	libxml-devel >= 1.7.3
-BuildRequires:	libglade-devel >= 0.9
+BuildRequires:	libtool
 BuildRequires:	libunicode-devel >= 0.4
-BuildRequires:	gdk-pixbuf-devel >= 0.8
+BuildRequires:	libxml-devel >= 1.7.3
+%{!?_without_lirc:BuildRequires: lirc-devel}
 BuildRequires:	pam-devel
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.4
 %endif
 BuildRequires:	zvbi-devel
-%{!?_with_lirc:BuildRequires: lirc-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -136,7 +139,6 @@ rm -rf $RPM_BUILD_ROOT
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
 mv -f plugins/alirc/README{.alirc,}
-
 
 %find_lang %{name} --with-gnome
 
