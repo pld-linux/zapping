@@ -8,11 +8,12 @@ Group(de):	X11/Applikationen/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
 URL:		http://zapping.sourceforge.net
-BuildRequires:	libxml-devel >= 1.4.0
-BuildRequires:	libglade-devel >= 0.9
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-libs-devel >= 1.0.40
 BuildRequires:	gtk+-devel >= 1.2.6
+BuildRequires:	libjpeg-devel
+BuildRequires:	libxml-devel >= 1.4.0
+BuildRequires:	libglade-devel >= 0.9
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -31,7 +32,9 @@ features, plus extensibility through a plugin system.
 
 %build
 gettextize --copy --force
-%configure
+autoconf
+%configure \
+	--without-included-gettext
 %{__make} plugindir=%{_libdir}/zapping
 
 %install
@@ -43,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 	plugindir=%{_libdir}/zapping \
 	Multimediadir=%{_applnkdir}/Multimedia
 
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/zapping/*.zapping.so*
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/zapping/lib*so*
 
 gzip -9nf AUTHORS THANKS ChangeLog README README.plugins TODO BUGS
 
@@ -57,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(0755,root,root) %{_bindir}/zapping
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
-%attr(0755,root,root) %{_libdir}/zapping/zapping*.zapping.so*
+%attr(0755,root,root) %{_libdir}/zapping/lib*so*
 
 %{_datadir}/zapping/*.glade
 %{_datadir}/pixmaps/zapping
