@@ -8,7 +8,7 @@ Name:		zapping
 Version:	0.7.0
 %define	ver	0.7
 %define	bver	cvs6
-Release:	1.%{bver}.4
+Release:	1.%{bver}.5
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
