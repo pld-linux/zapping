@@ -1,29 +1,25 @@
-%define  prefix  /usr
-%define  ver 0.5.2
+Name:		zapping
+Version:	0.5.2
+Release:	1
+Summary:	a TV viewer for Gnome
+License:	GPL
+Group:		X11/Applications/Multimedia
+Group(pl):	X11/Aplikacje/Multimedia
+Source0:	http://download.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
+URL:		http://zapping.sourceforge.net
+BuildRequires:	libxml-devel >= 1.4.0
+BuildRequires:	libglade-devel >= 0.9
+BuildRequires:	gettext-devel
+BuildRequires:	gnome-libs-devel >= 1.0.40
+BuildRequires:	gtk+-devel >= 1.2.6
+Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-Name: zapping
-Version: %{ver}
-Release: 1
-Summary: a TV viewer for Gnome
-Copyright: GPL
-Group: Applications/Multimedia
-Source: http://download.sourceforge.net/zapping/zapping-%{ver}.tar.gz
-URL: http://zapping.sourceforge.net
-Packager: Iñaki García Etxebarria <garetxe@users.sourceforge.net>
-Buildroot: /var/tmp/%{name}-root
-BuildPrereq: libglade-devel libxml-devel
-PreReq: /sbin/install-info
-Docdir: 	%{prefix}/doc
-
-Requires: gtk+ >= 1.2.6
-Requires: gnome-libs >= 1.0.40
-Requires: libxml >= 1.4.0
-Requires: libglade >= 0.9
+%define		_prefix		/usr/X11R6
 
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
 applications and desktop tools to be used in conjunction with a window
-manager for the X Window System.  GNOME is similar in purpose and scope
+manager for the X Window System. GNOME is similar in purpose and scope
 to CDE and KDE, but GNOME is based completely on free software.
 
 This is a TV viewer for the GNOME desktop. It has all the needed
@@ -33,45 +29,35 @@ features, plus extensibility through a plugin system.
 %setup -q
 
 %build
-./configure --prefix %prefix
-make
+gettextize --copy --force
+LDFLAGS="-s"; export LDFLAGS
+%configure
+%{__make}
 
 %install
-[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
-make prefix=$RPM_BUILD_ROOT%{prefix} install
+%{__make} install \
+	INSTALL_PROGRAM=install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	Multimediadir=%{_applnkdir}/Multimedia
+
+strip --strip-uneeded $RPM_BUILD_ROOT%{_datadir}/zapping/plugins/*.zapping.so*
+
+gzip -9nf AUTHORS THANKS ChangeLog README README.plugins TODO BUGS
+
+%find_lang %{name} --with-gnome
 
 %clean
-[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
+%defattr(644,root,root,755)
+%doc *.gz
+%attr(0755,root,root) %{_bindir}/zapping
+%attr(4755,root,root) %{_bindir}/zapping_setup_fb
+%attr(0755,root,root) %{_datadir}/zapping/plugins/*.zapping.so*
 
-%defattr (4555, root, root)
-%{prefix}/bin/zapping_setup_fb
-
-%defattr (0555, root, root)
-%{prefix}/bin/zapping
-%{prefix}/share/zapping/plugins/*.zapping.so
-%{prefix}/share/zapping/plugins/*.zapping.so.0.0.0
-
-%defattr (0444, root, root, 0555)
-%{prefix}/share/zapping/*.glade
-%{prefix}/share/gnome/help/zapping/C/*.jpeg
-%{prefix}/share/gnome/help/zapping/C/*.html
-%{prefix}/share/gnome/help/zapping/C/*.dat
-%{prefix}/share/pixmaps/zapping/*
-%{prefix}/share/gnome/apps/Multimedia/zapping.desktop
-%{prefix}/share/locale/*/*/*
-
-%defattr (0444, root, root, 0555)
-%doc AUTHORS THANKS ChangeLog README README.plugins COPYING TODO BUGS po/zapping.pot
-
-%changelog
-* Mon Jun 19 2000 Iñaki García Etxebarria <garetxe@users.sourceforge.net>
-	- Added the desktop entry and removed the specified --datadir
-
-* Mon Jun 12 2000 Iñaki García Etxebarria <garetxe@users.sourceforge.net>
-	- Fixed, it didn't include the translations properly.
-
-* Thu Jun 06 2000 Iñaki García Etxebarria <garetxe@users.sourceforge.net>
-	- Created, it works fine.
+%{_datadir}/zapping/*.glade
+%{_datadir}/pixmaps/zapping
+%{_applnkdir}/Multimedia/zapping.desktop
