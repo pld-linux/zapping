@@ -1,0 +1,9 @@
+diff -urN zapping.orig/zapping.desktop zapping/zapping.desktop
+--- zapping.orig/zapping.desktop	Fri Oct 11 19:30:30 2002
++++ zapping/zapping.desktop	Sat Oct 12 22:44:13 2002
+@@ -11,3 +11,4 @@
+ Exec=zapping
+ Icon=zapping/gnome-television.png
+ Type=Application
++Categories=GNOME;Application;AudioVideo;
+
