@@ -13,6 +13,7 @@ Patch0:		%{name}-make.patch
 Patch1:		%{name}-lirc-path.patch
 Patch2:		%{name}-am15.patch
 Patch3:		%{name}-ac.patch
+Patch4:		%{name}-interface.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildRequires:	autoconf
@@ -27,7 +28,7 @@ BuildRequires:	libglade-devel >= 0.9
 BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	gdk-pixbuf-devel >= 0.8
 BuildRequires:	pam-devel
-BuildRequires:	rte-devel >= 0.3.1
+#BuildRequires:	rte-devel >= 0.3.1
 %{!?_with_lirc:BuildRequires: lirc-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -135,6 +136,7 @@ do pliku JPEG.
 %patch1 -p0
 %patch2 -p1
 %patch3 -p1
+%patch4	-p1
 
 %build
 rm -f missing
@@ -154,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	localedir=$RPM_BUILD_ROOT%{_localedir}
+	localedir=%{_localedir}
 
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
