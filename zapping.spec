@@ -1,18 +1,12 @@
 #
 # Conditional build:
-# _without_lirc - disables LIRC
+%bcond_without	lirc	# without LIRC support
 #
-
-%define		snap	20030911
-
-%ifarch sparc sparcv9 sparc64
-%define		_without_lirc		1
-%endif
-
 Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.7.0
+%define	snap	20030911
 Release:	0.%{snap}.2
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -26,6 +20,7 @@ Patch4:		%{name}-desktopfile.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.4.0.1
 BuildRequires:	libjpeg-devel
@@ -34,7 +29,7 @@ BuildRequires:	libtool
 BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	libxml2-devel
 BuildRequires:	python-devel
-%{!?_without_lirc:BuildRequires:	lirc-devel}
+%{?with_lirc:BuildRequires:	lirc-devel}
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
 %endif
@@ -61,7 +56,7 @@ funkcjonalno¶ci przez system wtyczek (pluginów).
 Summary:	Another Zapping plugin for infrared control
 Summary(pl):	Kolejna wtyczka Zappingu do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description alirc-plugin
 This package allows you to control Zapping with a LIRC-supported
@@ -75,7 +70,7 @@ obs³ugiwanym przez LIRC.
 Summary:	Zapping plugin for infrared control
 Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	lirc
 
 %description lirc-plugin
@@ -90,7 +85,7 @@ obs³ugiwanym przez LIRC.
 Summary:	Zapping plugin that saves video in MPEG format
 Summary(pl):	Wtyczka Zappingu do zapisu obrazu w formacie MPEG
 Group:		X11/Applications/Multimedia
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description mpeg-plugin
 This package allows you to save video from TV in MPEG format.
@@ -102,7 +97,7 @@ Ten pakiet pozwala na zapis obrazu z TV w formacie MPEG.
 Summary:	Zapping plugin for taking screenshots
 Summary(pl):	Wtyczka Zappinga do robienia zrzutów ekranu
 Group:		X11/Applications/Multimedia
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description screenshot-plugin
 You can use this plugin to take screenshots of what you are actually
@@ -167,28 +162,22 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/zapping.desktop
 %{_mandir}/man?/*
 
-%if %{!?_without_lirc:1}%{?_without_lirc:0}
+%if %{with lirc}
 %files alirc-plugin
 %defattr(644,root,root,755)
-%{_plugindir}/libalirc.zapping.so
-%attr(0755,root,root) %{_plugindir}/libalirc.zapping.so.*.*
 %doc plugins/alirc/README
-%endif
+%attr(755,root,root) %{_plugindir}/libalirc.zapping.so*
 
-%if %{!?_without_lirc:1}%{?_without_lirc:0}
 %files lirc-plugin
 %defattr(644,root,root,755)
-%{_plugindir}/liblirc.zapping.so
-%attr(0755,root,root) %{_plugindir}/liblirc.zapping.so.*.*
 %doc plugins/lirc/README
+%attr(755,root,root) %{_plugindir}/liblirc.zapping.so*
 %endif
 
 %files mpeg-plugin
 %defattr(644,root,root,755)
-%{_plugindir}/libmpeg.zapping.so
-%attr(0755,root,root) %{_plugindir}/libmpeg.zapping.so.*.*
+%attr(755,root,root) %{_plugindir}/libmpeg.zapping.so*
 
 %files screenshot-plugin
 %defattr(644,root,root,755)
-%{_plugindir}/libscreenshot.zapping.so
-%attr(0755,root,root) %{_plugindir}/libscreenshot.zapping.so.*.*
+%attr(755,root,root) %{_plugindir}/libscreenshot.zapping.so*
