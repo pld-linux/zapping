@@ -115,8 +115,8 @@ telewizyjnego do pliku JPEG.
 rm -f missing
 libtoolize --copy --force
 aclocal -I %{_aclocaldir}/gnome
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 # We don't want dummy plugins
 echo 'all install:' > plugins/template/Makefile.in
 %configure \
