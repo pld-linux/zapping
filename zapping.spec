@@ -21,6 +21,7 @@ Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-lirc.patch
 Patch2:		%{name}-configure.patch
+Patch3:		%{name}-nooldlibxml.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -31,6 +32,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	libxml2-devel
+BuildRequires:	python-devel
 %{!?_without_lirc:BuildRequires:	lirc-devel}
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
@@ -114,6 +116,7 @@ telewizyjnego do pliku JPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 echo 'all install:' > plugins/template/Makefile.am
