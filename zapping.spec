@@ -5,24 +5,23 @@
 Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
-Version:	0.8
-Release:	4
+Version:	0.9.2
+Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Source0:	http://dl.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
-# Source0-md5:	11f24c9dfc537587c53c9400b4593e88
+# Source0-md5:	2621e602d6950eabbb610033d380ec5c
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
-Patch3:		%{name}-alpha-build.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	artsc-devel
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.1
-BuildRequires:	libgnomeui-devel >= 2.4.0.1
+BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 %{?with_lirc:BuildRequires:	lirc-devel}
@@ -68,6 +67,18 @@ remote control.
 Pakiet pozwalaj±cy na obs³ugê Zappinga pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
+%package deinterlace-plugin
+Summary:	Zapping plugin that deinterlaces video
+Summary(pl):	Wtyczka Zappinga usuwajÄca przeplot obrazu
+Group:		X11/Applications/Multimedia
+Requires:	%{name} = %{version}-%{release}
+
+%description deinterlace-plugin
+This package allows you to deinterlace TV video.
+
+%description deinterlace-plugin -l pl
+Pakiet pozwalaj±cy na usuniêcie przeplotu obrazu TV.
+
 %package mpeg-plugin
 Summary:	Zapping plugin that saves video in MPEG format
 Summary(pl):	Wtyczka Zappinga do zapisu obrazu w formacie MPEG
@@ -111,7 +122,6 @@ Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 glib-gettextize --copy --force
@@ -145,7 +155,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /usr/bin/scrollkeeper-update
+%post
+/usr/bin/scrollkeeper-update
+%gconf_schema_install
+
 %postun	-p /usr/bin/scrollkeeper-update
 
 %files -f %{name}.lang
@@ -154,10 +167,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/zapping
 %attr(755,root,root) %{_bindir}/zapzilla
 %attr(755,root,root) %{_bindir}/zapping_fix_overlay
+%attr(755,root,root) %{_bindir}/zapping_remote
 %attr(4755,root,root) %{_sbindir}/zapping_setup_fb
 %dir %{_libdir}/zapping
 %dir %{_plugindir}
 %{_pixmapsdir}/*
+%{_sysconfdir}/gconf/schemas/zapping.schemas
 %{_datadir}/zapping
 %{_omf_dest_dir}/zapping
 %{_desktopdir}/zapping.desktop
@@ -169,6 +184,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc plugins/alirc/README
 %attr(755,root,root) %{_plugindir}/libalirc.zapping.so*
 %endif
+
+%files deinterlace-plugin
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_plugindir}/libdeinterlace.zapping.so*
 
 %files mpeg-plugin
 %defattr(644,root,root,755)
