@@ -1,15 +1,18 @@
 Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
-Version:	0.5.92
+Version:	0.6.0
 Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(de):	X11/Applikationen/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
+Source0:	http://prdownloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-lirc-path.patch
+Patch2:		%{name}-am15.patch
+Patch3:		%{name}-AS_.patch
+Patch4:		%{name}-host_alias.patch
 URL:		http://zapping.sourceforge.net/
 #BuildRequires:	gettext-devel
 BuildRequires:	automake
@@ -21,12 +24,15 @@ BuildRequires:	libxml-devel >= 1.7.3
 BuildRequires:	libglade-devel >= 0.9
 BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	gdk-pixbuf-devel >= 0.8
+BuildRequires:	rte-devel
+%{?_with_lirc:BuildRequires: lirc-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_bindir		%{_prefix}/bin
 %define		_libdir		%{_prefix}/lib
 %define		_datadir	%{_prefix}/share
+%define		_mandir		%{_prefix}/man
 
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
@@ -42,6 +48,22 @@ Zapping to program do ogl±dania telewizji dla ¶rodowiska GNOME. Ma
 wszystkie potrzebne funkcje oraz oferuje mo¿liwo¶æ rozszerzania
 funkcjonalno¶ci przez system wtyczek (pluginów).
 
+%package alirc-plugin
+Summary:	Another Zapping plugin for infrared control
+Summary(pl):	Kolejna wtyczka Zappingu do kontroli podczerwieni±
+Group:		X11/Applications/Multimedia
+Group(de):	X11/Applikationen/Multimedia
+Group(pl):	X11/Aplikacje/Multimedia
+Requires:	%{name} = %{version}
+
+%description alirc-plugin
+This package allows you to control Zapping with a LIRC-supported remote
+control.
+
+%description alirc-plugin -l pl
+Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
+obs³ugiwanym przez LIRC.
+
 %package lirc-plugin
 Summary:	Zapping plugin for infrared control
 Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
@@ -56,6 +78,38 @@ This package allows you to control Zapping with a LIRC-supported remote
 control.
 
 %description lirc-plugin -l pl
+Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
+obs³ugiwanym przez LIRC.
+
+%package mpeg-plugin
+Summary:	Zapping plugin for infrared control
+Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Group:		X11/Applications/Multimedia
+Group(de):	X11/Applikationen/Multimedia
+Group(pl):	X11/Aplikacje/Multimedia
+Requires:	%{name} = %{version}
+
+%description mpeg-plugin
+This package allows you to control Zapping with a LIRC-supported remote
+control.
+
+%description mpeg-plugin -l pl
+Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
+obs³ugiwanym przez LIRC.
+
+%package parrot-plugin
+Summary:	Zapping plugin for infrared control
+Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Group:		X11/Applications/Multimedia
+Group(de):	X11/Applikationen/Multimedia
+Group(pl):	X11/Aplikacje/Multimedia
+Requires:	%{name} = %{version}
+
+%description parrot-plugin
+This package allows you to control Zapping with a LIRC-supported remote
+control.
+
+%description parrot-plugin -l pl
 Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
@@ -79,14 +133,20 @@ do pliku JPEG.
 %setup -q
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
+libtoolize --copy --force
+aclocal -I /usr/share/aclocal/gnome
 automake -a -c
-%configure2_13 \
-	--without-included-gettext
 # We don't want dummy plugins
-echo 'all install:' > plugins/template/Makefile
-echo 'all install:' > plugins/mpeg/Makefile
+echo 'all install:' > plugins/template/Makefile.in
+autoconf
+%configure \
+	AS='${CC}' \
+	--without-included-gettext
 %{__make}
 
 %install
@@ -94,7 +154,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	localedir=$RPM_BUILD_ROOT%{_localedir}
-gzip -9nf AUTHORS THANKS NEWS README* TODO BUGS plugins/lirc/README
+mv plugins/alirc/README{.alirc,}
+gzip -9nf AUTHORS THANKS NEWS README* TODO BUGS plugins/{a,}lirc/README
 
 %find_lang %{name} --with-gnome
 
@@ -108,9 +169,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
 %dir %{_libdir}/zapping
 %dir %{_libdir}/zapping/plugins
-%{_datadir}/zapping/*.glade
+%{_datadir}/zapping/zapping.glade
 %{_pixmapsdir}/zapping
 %{_applnkdir}/Multimedia/zapping.desktop
+
+%if %{?_with_lirc:1}%{!?_with_lirc:0}
+%files alirc-plugin
+%defattr(644,root,root,755)
+%{_libdir}/zapping/plugins/libalirc.zapping.so
+%attr(0755,root,root) %{_libdir}/zapping/plugins/libalirc.zapping.so.*.*
+%doc plugins/alirc/*.gz
+%endif
 
 %files lirc-plugin
 %defattr(644,root,root,755)
@@ -118,7 +187,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/zapping/plugins/liblirc.zapping.so.*.*
 %doc plugins/lirc/*.gz
 
+%files mpeg-plugin
+%defattr(644,root,root,755)
+%{_libdir}/zapping/plugins/libmpeg.zapping.so
+%attr(0755,root,root) %{_libdir}/zapping/plugins/libmpeg.zapping.so.*.*
+%{_datadir}/zapping/mpeg_properties.glade
+
+%if 0
+# Compiles, doesn't work
+%files parrot-plugin
+%defattr(644,root,root,755)
+%{_libdir}/zapping/plugins/libparrot.zapping.so
+%attr(0755,root,root) %{_libdir}/zapping/plugins/libparrot.zapping.so.*.*
+%{_datadir}/zapping/parrot.glade
+%endif
+
 %files screenshot-plugin
 %defattr(644,root,root,755)
 %{_libdir}/zapping/plugins/libscreenshot.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libscreenshot.zapping.so.*.*
+%{_datadir}/zapping/screenshot.glade
