@@ -2,40 +2,39 @@
 # Conditional build:
 # _without_lirc - disables LIRC
 #
+
+%define		snap	20021011
+
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
 %endif
 
-Summary:	A TV viewer for Gnome
-Summary(pl):	Program do ogl±dania telewizji dla GNOME
+
+Summary:	A TV viewer for Gnome2
+Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
-Version:	0.6.4
-Release:	5
+Version:	0.7
+Release:	0.%{snap}
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-make.patch
-Patch1:		%{name}-lirc-path.patch
-Patch2:		%{name}-am15.patch
+Source0:	%{name}-%{version}-%{snap}.tar.bz2
+Patch0:		%{name}-suid.patch
+Patch1:		%{name}-lirc.patch
+Patch2:		%{name}-desktop.patch
 URL:		http://zapping.sourceforge.net/
-BuildRequires:	gettext-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gdk-pixbuf-devel >= 0.8
-BuildRequires:	gnome-libs-devel >= 1.0.40
-BuildRequires:	gtk+-devel >= 1.2.6
-BuildRequires:	libglade-gnome-devel >= 0.9
+BuildRequires:	libglade2 >= 2.0.1
+BuildRequires:	libgnomeui >= 2.1.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libunicode-devel >= 0.4
-BuildRequires:	libxml-devel >= 1.7.3
 %{!?_without_lirc:BuildRequires: lirc-devel}
-BuildRequires:	pam-devel
 %ifarch %{ix86}
-BuildRequires:	rte-devel >= 0.4
+BuildRequires:	rte-devel >= 0.5
 %endif
-BuildRequires:	zvbi-devel
+BuildRequires:	zvbi-devel >= 0.2.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -112,29 +111,28 @@ watching in TV. It will save the screenshots in JPEG format.
 Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
 telewizyjnego do pliku JPEG.
 
-%prep
-%setup -q
+%prep -n %{name}
+%setup -q -n %{name}
 %patch0 -p1
-%patch1 -p0
+%patch1 -p1
 %patch2 -p1
 
 %build
-rm -f missing
+
+echo 'all install:' > plugins/template/Makefile.am
+glib-gettextize --copy --force
+intltoolize --copy --force
 %{__libtoolize}
-aclocal -I %{_aclocaldir}/gnome
-# Temporary hack for autoheader
-echo 'AH_OUTPUT([HAVE_LIBSM], [#undef HAVE_LIBSM])' >> configure.in
-%{__autoconf}
+%{__aclocal}
+%{__autoheader}
 %{__automake}
-# We don't want dummy plugins
-echo 'all install:' > plugins/template/Makefile.in
-%configure \
-	AS='${CC}' \
-	--without-included-gettext
+%{__autoconf}
+%configure 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}/applications,%{_pixmapsdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -142,7 +140,10 @@ rm -rf $RPM_BUILD_ROOT
 
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
-mv -f plugins/alirc/README{.alirc,}
+cp -f plugins/alirc/README{.alirc,}
+cp zapping.desktop $RPM_BUILD_ROOT%{_datadir}/applications
+mv $RPM_BUILD_ROOT%{_datadir}/zapping/gnome-television.png \
+   $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %find_lang %{name} --with-gnome
 
@@ -154,37 +155,34 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS THANKS NEWS README* TODO BUGS
 %attr(0755,root,root) %{_bindir}/zapping
 %attr(0755,root,root) %{_bindir}/zapzilla
-%attr(4755,root,root) %{_bindir}/zapping_setup_fb
+%attr(0755,root,root) %{_bindir}/zapping_fix_overlay
+%attr(4755,root,root) %{_sbindir}/zapping_setup_fb
 %dir %{_libdir}/zapping
 %dir %{_libdir}/zapping/plugins
-%dir %{_datadir}/zapping
-%{_datadir}/zapping/zapping.glade
-%{_pixmapsdir}/zapping
-%{_applnkdir}/Multimedia/zapping.desktop
+%{_pixmapsdir}/*
+%{_datadir}/zapping
+%{_datadir}/applications/zapping.desktop
 %{_mandir}/man?/*
 
 %if %{!?_without_lirc:1}%{?_without_lirc:0}
 %files alirc-plugin
 %defattr(644,root,root,755)
-%{_libdir}/zapping/plugins/libalirc.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libalirc.zapping.so.*.*
 %doc plugins/alirc/README
 %endif
 
 %files lirc-plugin
 %defattr(644,root,root,755)
-%{_libdir}/zapping/plugins/liblirc.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/liblirc.zapping.so.*.*
 %doc plugins/lirc/README
 
-%files mpeg-plugin
-%defattr(644,root,root,755)
-%{_libdir}/zapping/plugins/libmpeg.zapping.so
-%attr(0755,root,root) %{_libdir}/zapping/plugins/libmpeg.zapping.so.*.*
-%{_datadir}/zapping/mpeg_properties.glade
+#%files mpeg-plugin
+#%defattr(644,root,root,755)
+#%{_libdir}/zapping/plugins/libmpeg.zapping.so
+#%attr(0755,root,root) %{_libdir}/zapping/plugins/libmpeg.zapping.so.*.*
+#%{_datadir}/zapping/mpeg_properties.glade
 
 %files screenshot-plugin
 %defattr(644,root,root,755)
-%{_libdir}/zapping/plugins/libscreenshot.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libscreenshot.zapping.so.*.*
-%{_datadir}/zapping/screenshot.glade
+#%{_datadir}/zapping/screenshot.glade
