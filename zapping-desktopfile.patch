@@ -1,7 +1,8 @@
---- zapping-0.7.3/zapping.desktop.in.orig	2004-10-04 08:26:45.000000000 +0200
-+++ zapping-0.7.3/zapping.desktop.in	2004-10-11 21:20:24.771640152 +0200
-@@ -5,3 +5,4 @@
- Type=Application
- Exec=zapping
+--- zapping-0.8/zapping.desktop.in.orig	2004-11-02 17:51:18.000000000 +0100
++++ zapping-0.8/zapping.desktop.in	2004-11-14 16:40:37.335886960 +0100
+@@ -7,4 +7,4 @@
  Icon=zapping/gnome-television.png
-+Categories=GTK;GNOME;Video;TV;
+ Terminal=false
+ StartupNotify=true
+-Categories=GNOME;Application;Multimedia;AudioVideo;Video;TV;
++Categories=GTK;GNOME;Multimedia;AudioVideo;Video;TV;
