@@ -17,6 +17,7 @@ Source0:	http://dl.sourceforge.net/zapping/%{name}-%{ver}%{bver}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
+Patch3:		%{name}-deprecated.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -29,6 +30,7 @@ BuildRequires:	libpng-devel
 %{?with_lirc:BuildRequires:	lirc-devel}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
+BuildRequires:	mp1e-devel
 BuildRequires:	python-devel
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
@@ -99,6 +101,7 @@ telewizyjnego do pliku JPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # workaround for missing file
 touch common/structpr_gen.pl common/fprintf*.h
