@@ -6,8 +6,6 @@ Version:	0.6.2
 Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
 Source0:	http://prdownloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-lirc-path.patch
@@ -51,8 +49,6 @@ funkcjonalno¶ci przez system wtyczek (pluginów).
 Summary:	Another Zapping plugin for infrared control
 Summary(pl):	Kolejna wtyczka Zappingu do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
 Requires:	%{name} = %{version}
 
 %description alirc-plugin
@@ -67,8 +63,6 @@ obs³ugiwanym przez LIRC.
 Summary:	Zapping plugin for infrared control
 Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
 Requires:	%{name} = %{version}
 Requires:	lirc
 
@@ -84,8 +78,6 @@ obs³ugiwanym przez LIRC.
 Summary:	Zapping plugin for infrared control
 Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
 Requires:	%{name} = %{version}
 
 %description mpeg-plugin
@@ -100,8 +92,6 @@ obs³ugiwanym przez LIRC.
 Summary:	Zapping plugin for taking screenshots
 Summary(pl):	Wtyczka Zappinga do robienia zrzutów ekranu
 Group:		X11/Applications/Multimedia
-Group(de):	X11/Applikationen/Multimedia
-Group(pl):	X11/Aplikacje/Multimedia
 Requires:	%{name} = %{version}
 
 %description screenshot-plugin
