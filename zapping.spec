@@ -8,7 +8,7 @@ Name:		zapping
 Version:	0.7.0
 %define	ver	0.7
 %define	bver	cvs6
-Release:	1.%{bver}.1
+Release:	1.%{bver}.4
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
@@ -17,6 +17,7 @@ Source0:	http://dl.sourceforge.net/zapping/%{name}-%{ver}%{bver}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
+Patch3:		%{name}-deprecated.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -34,6 +35,7 @@ BuildRequires:	python-devel
 BuildRequires:	rte-devel >= 0.5
 %endif
 BuildRequires:	zvbi-devel >= 0.2.3
+Requires(post): scrollkeeper
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_plugindir	%{_libdir}/zapping/plugins
@@ -99,6 +101,7 @@ telewizyjnego do pliku JPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # workaround for missing file
 touch common/structpr_gen.pl common/fprintf*.h
@@ -137,8 +140,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /usr/bin/scrollkeeper
-%postun	-p /usr/bin/scrollkeeper
+%post	-p /usr/bin/scrollkeeper-update
+%postun	-p /usr/bin/scrollkeeper-update
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
