@@ -9,7 +9,7 @@
 %define		_without_lirc		1
 %endif
 
-Summary:	A TV viewer for Gnome2
+Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.7.0
