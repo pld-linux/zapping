@@ -21,7 +21,6 @@ Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-lirc.patch
 Patch2:		%{name}-desktop.patch
-Patch3:		%{name}-include.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -116,7 +115,6 @@ telewizyjnego do pliku JPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 
