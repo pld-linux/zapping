@@ -12,7 +12,7 @@ Release:	1.%{bver}.1
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
-Source0:	http://dl.sourceforge.net/zaping/%{name}-%{ver}%{bver}.tar.bz2
+Source0:	http://dl.sourceforge.net/zapping/%{name}-%{ver}%{bver}.tar.bz2
 # Source0-md5:	cdedc0088c70f4520c37066ec05cb996
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
