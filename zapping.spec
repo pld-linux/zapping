@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20030326
+%define		snap	20030911
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
@@ -17,16 +17,15 @@ Release:	0.%{snap}.1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	%{name}-%{version}-%{snap}.tar.bz2
-# Source0-md5:	3da2946d67f32f41193334b0f74b51f0
+# Source0-md5:	dbde6205acadd996232dfb1328ce0a26
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-lirc.patch
-Patch2:		%{name}-desktop.patch
-Patch3:		%{name}-configure.patch
+Patch2:		%{name}-configure.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libglade2-devel >= 2.0.1
-BuildRequires:	libgnomeui-devel >= 2.3.3.1-2
+BuildRequires:	libgnomeui-devel >= 2.4.0.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
@@ -115,7 +114,6 @@ telewizyjnego do pliku JPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 echo 'all install:' > plugins/template/Makefile.am
@@ -140,8 +138,7 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_desktopdir},%{_pixmapsdir}}
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
 cp -f plugins/alirc/README{.alirc,}
-mv $RPM_BUILD_ROOT%{_datadir}/zapping/gnome-television.png \
-   $RPM_BUILD_ROOT%{_pixmapsdir}
+#ln -s %{_pixmapsdir}/zapping/gnome-television.png $RPM_BUILD_ROOT%{_pixmapsdir}/gnome-television.png
 
 # Remove useless *.la files
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
