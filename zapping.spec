@@ -5,17 +5,16 @@
 Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
-Version:	0.7.2
-Release:	0.9
+Version:	0.7.3
+Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Source0:	http://dl.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
-# Source0-md5:	4ee7770beb5e3094fed6dfd79104c932
+# Source0-md5:	e96b6c831a6d8035dbeb8cfa6eb71cec
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
-#Patch3:		%{name}-deprecated.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -112,12 +111,6 @@ Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-#%patch3 -p1 //obsoleted?
-
-# workaround for missing file
-touch common/structpr_gen.pl common/fprintf*.h
-
-%{__perl} -pi -e "s@lib/python@%{_lib}/python@" acinclude.m4
 
 %build
 glib-gettextize --copy --force
@@ -142,7 +135,6 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_desktopdir},%{_pixmapsdir}}
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
 cp -f plugins/alirc/README{.alirc,}
-#ln -s %{_pixmapsdir}/zapping/gnome-television.png $RPM_BUILD_ROOT%{_pixmapsdir}/gnome-television.png
 
 # Remove useless *.la files
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
