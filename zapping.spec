@@ -18,6 +18,7 @@ Release:	0.%{snap}
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	%{name}-%{version}-%{snap}.tar.bz2
+# Source0-md5:	3da2946d67f32f41193334b0f74b51f0
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-lirc.patch
 Patch2:		%{name}-desktop.patch
