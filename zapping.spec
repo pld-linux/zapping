@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20021218
+%define		snap	20030104
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
@@ -13,7 +13,7 @@
 Summary:	A TV viewer for Gnome2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
-Version:	0.7
+Version:	0.7.0
 Release:	0.%{snap}
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -34,10 +34,11 @@ BuildRequires:	libunicode-devel >= 0.4
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
 %endif
-BuildRequires:	zvbi-devel >= 0.2.2
+BuildRequires:	zvbi-devel >= 0.2.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-#%%define		_localedir	/usr/share/locale
+%define		_plugindir	%{_libdir}/zapping/plugins
+
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
 applications and desktop tools to be used in conjunction with a window
@@ -109,8 +110,8 @@ watching in TV. It will save the screenshots in JPEG format.
 Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
 telewizyjnego do pliku JPEG.
 
-%prep -n %{name}
-%setup -q -n %{name}
+%prep 
+%setup -q 
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -134,8 +135,6 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}/applications,%{_pixmapsdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT 
-	
-#	localedir=%{_localedir}
 
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
@@ -157,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/zapping_fix_overlay
 %attr(4755,root,root) %{_sbindir}/zapping_setup_fb
 %dir %{_libdir}/zapping
-%dir %{_libdir}/zapping/plugins
+%dir %{_plugindir}
 %{_pixmapsdir}/*
 %{_datadir}/zapping
 %{_datadir}/applications/zapping.desktop
@@ -166,22 +165,25 @@ rm -rf $RPM_BUILD_ROOT
 %if %{!?_without_lirc:1}%{?_without_lirc:0}
 %files alirc-plugin
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_libdir}/zapping/plugins/libalirc.zapping.so.*.*
+%{_plugindir}/libalirc.zapping.so
+%attr(0755,root,root) %{_plugindir}/libalirc.zapping.so.*.*
 %doc plugins/alirc/README
 %endif
 
+%if %{!?_without_lirc:1}%{?_without_lirc:0}
 %files lirc-plugin
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_libdir}/zapping/plugins/liblirc.zapping.so.*.*
+%{_plugindir}/liblirc.zapping.so
+%attr(0755,root,root) %{_plugindir}/liblirc.zapping.so.*.*
 %doc plugins/lirc/README
+%endif
 
 #%files mpeg-plugin
 #%defattr(644,root,root,755)
-#%{_libdir}/zapping/plugins/libmpeg.zapping.so
-#%attr(0755,root,root) %{_libdir}/zapping/plugins/libmpeg.zapping.so.*.*
-#%{_datadir}/zapping/mpeg_properties.glade
+#%{_plugindir}/libmpeg.zapping.so
+#%attr(0755,root,root) %{_plugindir}/libmpeg.zapping.so.*.*
 
 %files screenshot-plugin
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_libdir}/zapping/plugins/libscreenshot.zapping.so.*.*
-#%{_datadir}/zapping/screenshot.glade
+%{_plugindir}/libscreenshot.zapping.so
+%attr(0755,root,root) %{_plugindir}/libscreenshot.zapping.so.*.*
