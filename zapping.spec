@@ -5,19 +5,17 @@
 Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
-Version:	0.7.0
-%define	ver	0.7
-%define	bver	cvs6
-Release:	1.%{bver}.2
+Version:	0.7.1
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
-Source0:	http://dl.sourceforge.net/zapping/%{name}-%{ver}%{bver}.tar.bz2
-# Source0-md5:	cdedc0088c70f4520c37066ec05cb996
+Source0:	http://dl.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
+# Source0-md5:	8a5c9a0225efe486b916278f52f5adcd
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
-Patch3:		%{name}-deprecated.patch
+#Patch3:		%{name}-deprecated.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -97,11 +95,11 @@ Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
 telewizyjnego do pliku JPEG.
 
 %prep
-%setup -q -n %{name}-%{ver}%{bver}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+#%patch3 -p1 //obsoleted?
 
 # workaround for missing file
 touch common/structpr_gen.pl common/fprintf*.h
