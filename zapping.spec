@@ -1,7 +1,8 @@
+# _without_lirc - disables LIRC
 Summary:	A TV viewer for Gnome
 Summary(pl):	Program do ogl±dania telewizji dla GNOME
 Name:		zapping
-Version:	0.6.0
+Version:	0.6.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -11,10 +12,9 @@ Source0:	http://prdownloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-lirc-path.patch
 Patch2:		%{name}-am15.patch
-Patch3:		%{name}-AS_.patch
-Patch4:		%{name}-host_alias.patch
+Patch3:		%{name}-ac.patch
 URL:		http://zapping.sourceforge.net/
-#BuildRequires:	gettext-devel
+BuildRequires:	gettext-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -26,16 +26,14 @@ BuildRequires:	libxml-devel >= 1.7.3
 BuildRequires:	libglade-devel >= 0.9
 BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	gdk-pixbuf-devel >= 0.8
-BuildRequires:	rte-devel
-%{?_with_lirc:BuildRequires: lirc-devel}
+BuildRequires:	pam-devel
+BuildRequires:	rte-devel >= 0.3.1
+%{!?_with_lirc:BuildRequires: lirc-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
-%define		_bindir		%{_prefix}/bin
-%define		_libdir		%{_prefix}/lib
-%define		_datadir	%{_prefix}/share
 %define		_mandir		%{_prefix}/man
-
+%define		_localedir	/usr/share/locale
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
 applications and desktop tools to be used in conjunction with a window
@@ -137,15 +135,15 @@ do pliku JPEG.
 %patch1 -p0
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
+rm -f missing
 libtoolize --copy --force
-aclocal -I /usr/share/aclocal/gnome
+aclocal -I %{_aclocaldir}/gnome
+autoconf
 automake -a -c
 # We don't want dummy plugins
 echo 'all install:' > plugins/template/Makefile.in
-autoconf
 %configure \
 	AS='${CC}' \
 	--without-included-gettext
@@ -153,10 +151,15 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	localedir=$RPM_BUILD_ROOT%{_localedir}
+
+ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
+
 mv -f plugins/alirc/README{.alirc,}
+
 gzip -9nf AUTHORS THANKS NEWS README* TODO BUGS plugins/{a,}lirc/README
 
 %find_lang %{name} --with-gnome
@@ -168,14 +171,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(0755,root,root) %{_bindir}/zapping
+%attr(0755,root,root) %{_bindir}/zapzilla
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
 %dir %{_libdir}/zapping
 %dir %{_libdir}/zapping/plugins
 %{_datadir}/zapping/zapping.glade
 %{_pixmapsdir}/zapping
 %{_applnkdir}/Multimedia/zapping.desktop
+%{_mandir}/man?/*
 
-%if %{?_with_lirc:1}%{!?_with_lirc:0}
+%if %{!?_without_lirc:1}%{?_without_lirc:0}
 %files alirc-plugin
 %defattr(644,root,root,755)
 %{_libdir}/zapping/plugins/libalirc.zapping.so
@@ -195,14 +200,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libmpeg.zapping.so.*.*
 %{_datadir}/zapping/mpeg_properties.glade
 
-%if 0
-# Compiles, doesn't work
+# Compiles, doesn't work?
 %files parrot-plugin
 %defattr(644,root,root,755)
 %{_libdir}/zapping/plugins/libparrot.zapping.so
 %attr(0755,root,root) %{_libdir}/zapping/plugins/libparrot.zapping.so.*.*
 %{_datadir}/zapping/parrot.glade
-%endif
 
 %files screenshot-plugin
 %defattr(644,root,root,755)
