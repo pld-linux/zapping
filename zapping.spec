@@ -6,17 +6,17 @@ Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.7.0
-%define	snap	20030911
-Release:	0.%{snap}.2
+%define	ver	0.7
+%define	bver	cvs6
+Release:	1.%{bver}.1
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	%{name}-%{version}-%{snap}.tar.bz2
-# Source0-md5:	dbde6205acadd996232dfb1328ce0a26
+#Source0:	%{name}-%{version}-%{snap}.tar.bz2
+Source0:	http://dl.sourceforge.net/zaping/%{name}-%{ver}%{bver}.tar.bz2
+# Source0-md5:	cdedc0088c70f4520c37066ec05cb996
 Patch0:		%{name}-suid.patch
-Patch1:		%{name}-lirc.patch
-Patch2:		%{name}-configure.patch
-Patch3:		%{name}-nooldlibxml.patch
-Patch4:		%{name}-desktopfile.patch
+Patch1:		%{name}-libdir.patch
+Patch2:		%{name}-desktopfile.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -26,11 +26,10 @@ BuildRequires:	libglade2-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.4.0.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+%{?with_lirc:BuildRequires:	lirc-devel}
 BuildRequires:	libtool
-BuildRequires:	libunicode-devel >= 0.4
 BuildRequires:	libxml2-devel
 BuildRequires:	python-devel
-%{?with_lirc:BuildRequires:	lirc-devel}
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
 %endif
@@ -58,27 +57,14 @@ Summary:	Another Zapping plugin for infrared control
 Summary(pl):	Kolejna wtyczka Zappingu do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
+Requires:	lirc
+Obsoletes:	zapping-lirc-plugin
 
 %description alirc-plugin
 This package allows you to control Zapping with a LIRC-supported
 remote control.
 
 %description alirc-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
-
-%package lirc-plugin
-Summary:	Zapping plugin for infrared control
-Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
-Group:		X11/Applications/Multimedia
-Requires:	%{name} = %{version}-%{release}
-Requires:	lirc
-
-%description lirc-plugin
-This package allows you to control Zapping with a LIRC-supported
-remote control.
-
-%description lirc-plugin -l pl
 Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
@@ -109,15 +95,17 @@ Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
 telewizyjnego do pliku JPEG.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{ver}%{bver}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
+
+# workaround for missing file
+touch common/structpr_gen.pl common/fprintf*.h
+
+%{__perl} -pi -e "s@lib/python@%{_lib}/python@" acinclude.m4
 
 %build
-echo 'all install:' > plugins/template/Makefile.am
 glib-gettextize --copy --force
 intltoolize --copy --force
 %{__libtoolize}
@@ -149,17 +137,21 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /usr/bin/scrollkeeper
+%postun	-p /usr/bin/scrollkeeper
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS THANKS NEWS README* TODO BUGS
-%attr(0755,root,root) %{_bindir}/zapping
-%attr(0755,root,root) %{_bindir}/zapzilla
-%attr(0755,root,root) %{_bindir}/zapping_fix_overlay
+%attr(755,root,root) %{_bindir}/zapping
+%attr(755,root,root) %{_bindir}/zapzilla
+%attr(755,root,root) %{_bindir}/zapping_fix_overlay
 %attr(4755,root,root) %{_sbindir}/zapping_setup_fb
 %dir %{_libdir}/zapping
 %dir %{_plugindir}
 %{_pixmapsdir}/*
 %{_datadir}/zapping
+%{_omf_dest_dir}/zapping
 %{_desktopdir}/zapping.desktop
 %{_mandir}/man?/*
 
@@ -168,11 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc plugins/alirc/README
 %attr(755,root,root) %{_plugindir}/libalirc.zapping.so*
-
-%files lirc-plugin
-%defattr(644,root,root,755)
-%doc plugins/lirc/README
-%attr(755,root,root) %{_plugindir}/liblirc.zapping.so*
 %endif
 
 %files mpeg-plugin
