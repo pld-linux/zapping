@@ -1,9 +1,10 @@
 Summary:	a TV viewer for Gnome
 Name:		zapping
-Version:	0.5.2
+Version:	0.5.4
 Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
+Group(de):	X11/Applikationen/Multimedia
 Group(pl):	X11/Aplikacje/Multimedia
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/zapping/%{name}-%{version}.tar.bz2
 URL:		http://zapping.sourceforge.net
@@ -30,19 +31,19 @@ features, plus extensibility through a plugin system.
 
 %build
 gettextize --copy --force
-LDFLAGS="-s"; export LDFLAGS
 %configure
-%{__make}
+%{__make} plugindir=%{_libdir}/zapping
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	INSTALL_PROGRAM=install \
+	INSTALL_PROGRAM="install" \
 	DESTDIR=$RPM_BUILD_ROOT \
+	plugindir=%{_libdir}/zapping \
 	Multimediadir=%{_applnkdir}/Multimedia
 
-strip --strip-unneeded $RPM_BUILD_ROOT%{_datadir}/zapping/plugins/*.zapping.so*
+strip --strip-unneeded $RPM_BUILD_ROOT%{_datadir}/zapping/*.zapping.so*
 
 gzip -9nf AUTHORS THANKS ChangeLog README README.plugins TODO BUGS
 
@@ -56,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(0755,root,root) %{_bindir}/zapping
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
-%attr(0755,root,root) %{_datadir}/zapping/plugins/*.zapping.so*
+%attr(0755,root,root) %{_libdir}/zapping*.zapping.so*
 
 %{_datadir}/zapping/*.glade
 %{_datadir}/pixmaps/zapping
