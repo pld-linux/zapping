@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20021011
+%define		snap	20021218
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
@@ -37,9 +37,7 @@ BuildRequires:	rte-devel >= 0.5
 BuildRequires:	zvbi-devel >= 0.2.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
-%define		_localedir	/usr/share/locale
+#%%define		_localedir	/usr/share/locale
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
 applications and desktop tools to be used in conjunction with a window
@@ -135,8 +133,9 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}/applications,%{_pixmapsdir}}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	localedir=%{_localedir}
+	DESTDIR=$RPM_BUILD_ROOT 
+	
+#	localedir=%{_localedir}
 
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
