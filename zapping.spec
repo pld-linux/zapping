@@ -27,6 +27,7 @@ BuildRequires:	libglade2-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.4.0.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:	mp1e-devel
 %{?with_lirc:BuildRequires:	lirc-devel}
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
