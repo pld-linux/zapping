@@ -2,7 +2,7 @@
 # Conditional build:
 # _without_lirc - disables LIRC
 #
-%farch sparc sparcv9 sparc64
+%ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
 %endif
 
