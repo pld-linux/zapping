@@ -1,7 +1,7 @@
 Summary:	a TV viewer for Gnome
 Name:		zapping
 Version:	0.5.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Multimedia
 Group(de):	X11/Applikationen/Multimedia
@@ -45,8 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	plugindir=%{_libdir}/zapping \
 	Multimediadir=%{_applnkdir}/Multimedia
-
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/zapping/lib*so*
 
 gzip -9nf AUTHORS THANKS ChangeLog README README.plugins TODO BUGS
 
