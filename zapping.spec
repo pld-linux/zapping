@@ -9,7 +9,6 @@
 %define		_without_lirc		1
 %endif
 
-
 Summary:	A TV viewer for Gnome2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
@@ -132,11 +131,11 @@ intltoolize --copy --force
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}/applications,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_desktopdir},%{_pixmapsdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	Multimediadir=%{_datadir}/applications
+	Multimediadir=%{_desktopdir}
 
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
@@ -163,7 +162,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_plugindir}
 %{_pixmapsdir}/*
 %{_datadir}/zapping
-%{_datadir}/applications/zapping.desktop
+%{_desktopdir}/zapping.desktop
 %{_mandir}/man?/*
 
 %if %{!?_without_lirc:1}%{?_without_lirc:0}
