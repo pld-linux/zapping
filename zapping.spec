@@ -15,6 +15,7 @@ Source0:	http://dl.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
+Patch3:		%{name}-amd64.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -122,6 +123,7 @@ Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 glib-gettextize --copy --force
@@ -185,9 +187,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_plugindir}/libalirc.zapping.so*
 %endif
 
+# not buildable on other archs
+%ifarch %{ix86}
 %files deinterlace-plugin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_plugindir}/libdeinterlace.zapping.so*
+%endif
 
 %files mpeg-plugin
 %defattr(644,root,root,755)
