@@ -1,12 +1,13 @@
-diff -urN zapping.orig/zapping_setup_fb/Makefile.am zapping/zapping_setup_fb/Makefile.am
---- zapping.orig/zapping_setup_fb/Makefile.am	Fri Oct 11 19:30:30 2002
-+++ zapping/zapping_setup_fb/Makefile.am	Sat Oct 12 22:42:05 2002
-@@ -10,7 +10,7 @@
+diff -urN zapping-0.7.0.orig/zapping_setup_fb/Makefile.am zapping-0.7.0/zapping_setup_fb/Makefile.am
+--- zapping-0.7.0.orig/zapping_setup_fb/Makefile.am	Sun Feb 16 21:10:00 2003
++++ zapping-0.7.0/zapping_setup_fb/Makefile.am	Sun Feb 16 21:13:42 2003
+@@ -12,8 +12,7 @@
  install-binPROGRAMS: $(bin_PROGRAMS) zsfb.capps
  if SUID_ZSFB
  	$(mkinstalldirs) $(DESTDIR)$(bindir)
--	$(INSTALL) -m4755 -o root -g root zapping_setup_fb $(DESTDIR)$(sbindir)
+-	$(INSTALL) -m4755 -o $(ZSFB_OWNER) -g $(ZSFB_GROUP) \
+-	  zapping_setup_fb $(DESTDIR)$(sbindir)
 +	$(INSTALL) zapping_setup_fb $(DESTDIR)$(sbindir)
  	ln -sf $(DESTDIR)$(sbindir)/zapping_setup_fb \
- 		$(DESTDIR)$(bindir)/zapping_setup_fb
+ 	  $(DESTDIR)$(bindir)/zapping_setup_fb
  else
