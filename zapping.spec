@@ -36,8 +36,6 @@ BuildRequires:	rte-devel >= 0.5
 BuildRequires:	zvbi-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 %define		_localedir	/usr/share/locale
 %description
 GNOME (GNU Network Object Model Environment) is a user-friendly set of
