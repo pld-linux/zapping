@@ -30,6 +30,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libunicode-devel >= 0.4
+BuildRequires:	libxml-devel
 %{!?_without_lirc:BuildRequires: lirc-devel}
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
