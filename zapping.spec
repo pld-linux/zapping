@@ -5,13 +5,13 @@
 Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
-Version:	0.7.1
-Release:	0.1
+Version:	0.7.2
+Release:	0.9
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Source0:	http://dl.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
-# Source0-md5:	8a5c9a0225efe486b916278f52f5adcd
+# Source0-md5:	4ee7770beb5e3094fed6dfd79104c932
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-libdir.patch
 Patch2:		%{name}-desktopfile.patch
@@ -54,7 +54,7 @@ funkcjonalno¶ci przez system wtyczek (pluginów).
 
 %package alirc-plugin
 Summary:	Another Zapping plugin for infrared control
-Summary(pl):	Kolejna wtyczka Zappingu do kontroli podczerwieni±
+Summary(pl):	Kolejna wtyczka Zappinga do kontroli podczerwieni±
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 Requires:	lirc
@@ -65,12 +65,12 @@ This package allows you to control Zapping with a LIRC-supported
 remote control.
 
 %description alirc-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
+Pakiet pozwalaj±cy na obs³ugê Zappinga pilotem zdalnego sterowania
 obs³ugiwanym przez LIRC.
 
 %package mpeg-plugin
 Summary:	Zapping plugin that saves video in MPEG format
-Summary(pl):	Wtyczka Zappingu do zapisu obrazu w formacie MPEG
+Summary(pl):	Wtyczka Zappinga do zapisu obrazu w formacie MPEG
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
@@ -78,7 +78,7 @@ Requires:	%{name} = %{version}-%{release}
 This package allows you to save video from TV in MPEG format.
 
 %description mpeg-plugin -l pl
-Ten pakiet pozwala na zapis obrazu z TV w formacie MPEG.
+Pakiet pozwalaj±cy na zapis obrazu z TV w formacie MPEG.
 
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
@@ -91,8 +91,21 @@ You can use this plugin to take screenshots of what you are actually
 watching in TV. It will save the screenshots in JPEG format.
 
 %description screenshot-plugin -l pl
-Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
+Wtyczka pozwalaj±ca na zapisywanie aktualnie ogl±danego obrazu
 telewizyjnego do pliku JPEG.
+
+%package teletext-plugin
+Summary:	Zapping plugin that displays teletext informations
+Summary(pl):	Wtyczka Zappinga wy¶wietlaj±ca strony teletekstowe
+Group:		X11/Applications/Multimedia
+Requires:	%{name} = %{version}-%{release}
+
+%description teletext-plugin
+This package allows you to display teletext pages.
+
+%description teletext-plugin -l pl
+Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
+
 
 %prep
 %setup -q
@@ -114,7 +127,8 @@ intltoolize --copy --force
 %{__autoheader}
 %{__automake}
 %{__autoconf}
-%configure
+%configure \
+	--disable-schemas-install
 %{__make}
 
 %install
@@ -170,3 +184,7 @@ rm -rf $RPM_BUILD_ROOT
 %files screenshot-plugin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_plugindir}/libscreenshot.zapping.so*
+
+%files teletext-plugin
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_plugindir}/libteletext.zapping.so*
