@@ -57,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(0755,root,root) %{_bindir}/zapping
 %attr(4755,root,root) %{_bindir}/zapping_setup_fb
-%attr(0755,root,root) %{_libdir}/zapping*.zapping.so*
+%attr(0755,root,root) %{_libdir}/zapping/zapping*.zapping.so*
 
 %{_datadir}/zapping/*.glade
 %{_datadir}/pixmaps/zapping
