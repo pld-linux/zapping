@@ -12,12 +12,12 @@ diff -Nur zapping-0.5.9.orig/Makefile.am zapping-0.5.9/Makefile.am
 diff -Nur zapping-0.5.9.orig/zapping_setup_fb/Makefile.am zapping-0.5.9/zapping_setup_fb/Makefile.am
 --- zapping-0.5.9.orig/zapping_setup_fb/Makefile.am	Tue Feb  6 02:20:50 2001
 +++ zapping-0.5.9/zapping_setup_fb/Makefile.am	Sat Aug 11 00:30:09 2001
-@@ -10,7 +10,7 @@
- if SUID_ZSFB
+@@ -8,7 +8,7 @@
  install-binPROGRAMS: $(bin_PROGRAMS)
+ if SUID_ZSFB
  	$(mkinstalldirs) $(DESTDIR)$(bindir)
 -	$(INSTALL) -m4755 -o root -g root zapping_setup_fb $(DESTDIR)$(bindir)
 +	$(INSTALL) zapping_setup_fb $(DESTDIR)$(bindir)
- 
- uninstall-binPROGRAMS:
- 	rm -f $(DESTDIR)$(bindir)/zapping_setup_fb
+ else
+ 	$(mkinstalldirs) $(DESTDIR)$(bindir)
+ 	$(mkinstalldirs) $(DESTDIR)$(sbindir)
