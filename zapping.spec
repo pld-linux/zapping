@@ -3,7 +3,7 @@
 # _without_lirc - disables LIRC
 #
 
-%define		snap	20030131
+%define		snap	20030216
 
 %ifarch sparc sparcv9 sparc64
 %define		_without_lirc		1
@@ -21,6 +21,7 @@ Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Patch0:		%{name}-suid.patch
 Patch1:		%{name}-lirc.patch
 Patch2:		%{name}-desktop.patch
+Patch3:		%{name}-configure.patch
 URL:		http://zapping.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -114,6 +115,7 @@ telewizyjnego do pliku JPEG.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 echo 'all install:' > plugins/template/Makefile.am
@@ -132,12 +134,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}/applications,%{_pixmapsdir}}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT 
+	DESTDIR=$RPM_BUILD_ROOT \
+	Multimediadir=%{_datadir}/applications
 
 ln -sf zapping $RPM_BUILD_ROOT%{_bindir}/zapzilla
 
 cp -f plugins/alirc/README{.alirc,}
-cp zapping.desktop $RPM_BUILD_ROOT%{_datadir}/applications
 mv $RPM_BUILD_ROOT%{_datadir}/zapping/gnome-television.png \
    $RPM_BUILD_ROOT%{_pixmapsdir}
 
