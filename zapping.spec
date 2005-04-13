@@ -6,7 +6,7 @@ Summary:	A TV viewer for GNOME2
 Summary(pl):	Program do ogl±dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.9.2
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Applications/Multimedia
 #Source0:	%{name}-%{version}-%{snap}.tar.bz2
@@ -22,7 +22,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	artsc-devel
 BuildRequires:	intltool
-BuildRequires:	libglade2-devel >= 2.0.1
+BuildRequires:	libglade2-devel >= 1:2.5.1
 BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
@@ -30,11 +30,13 @@ BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	python-devel
+BuildRequires:	rpmbuild(macros) >= 1.197
 %ifarch %{ix86}
 BuildRequires:	rte-devel >= 0.5
 %endif
 BuildRequires:	zvbi-devel >= 0.2.9
-Requires(post): scrollkeeper
+Requires(post,preun): GConf2
+Requires(post,postun): scrollkeeper
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_plugindir	%{_libdir}/zapping/plugins
@@ -128,8 +130,8 @@ Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
 %patch4 -p1
 
 %build
-glib-gettextize --copy --force
-intltoolize --copy --force
+%{__glib_gettextize}
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -160,10 +162,14 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/usr/bin/scrollkeeper-update
-%gconf_schema_install
+%scrollkeeper_update_post
+%gconf_schema_install zapping.schemas
 
-%postun	-p /usr/bin/scrollkeeper-update
+%preun
+%gconf_schema_uninstall zapping.schemas
+
+%postun
+%scrollkeeper_update_postun
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
