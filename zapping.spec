@@ -3,7 +3,7 @@
 %bcond_without	lirc	# without LIRC support
 #
 Summary:	A TV viewer for GNOME2
-Summary(pl.UTF-8):   Program do oglądania telewizji dla GNOME2
+Summary(pl.UTF-8):	Program do oglądania telewizji dla GNOME2
 Name:		zapping
 Version:	0.9.6
 Release:	2
@@ -56,7 +56,7 @@ funkcjonalności przez system wtyczek (pluginów).
 
 %package alirc-plugin
 Summary:	Another Zapping plugin for infrared control
-Summary(pl.UTF-8):   Kolejna wtyczka Zappinga do kontroli podczerwienią
+Summary(pl.UTF-8):	Kolejna wtyczka Zappinga do kontroli podczerwienią
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 Requires:	lirc
@@ -72,7 +72,7 @@ obsługiwanym przez LIRC.
 
 %package deinterlace-plugin
 Summary:	Zapping plugin that deinterlaces video
-Summary(pl.UTF-8):   Wtyczka Zappinga usuwajÄca przeplot obrazu
+Summary(pl.UTF-8):	Wtyczka Zappinga usuwajÄca przeplot obrazu
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
@@ -84,7 +84,7 @@ Pakiet pozwalający na usunięcie przeplotu obrazu TV.
 
 %package mpeg-plugin
 Summary:	Zapping plugin that saves video in MPEG format
-Summary(pl.UTF-8):   Wtyczka Zappinga do zapisu obrazu w formacie MPEG
+Summary(pl.UTF-8):	Wtyczka Zappinga do zapisu obrazu w formacie MPEG
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
@@ -96,7 +96,7 @@ Pakiet pozwalający na zapis obrazu z TV w formacie MPEG.
 
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
-Summary(pl.UTF-8):   Wtyczka Zappinga do robienia zrzutów ekranu
+Summary(pl.UTF-8):	Wtyczka Zappinga do robienia zrzutów ekranu
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
@@ -110,7 +110,7 @@ telewizyjnego do pliku JPEG.
 
 %package teletext-plugin
 Summary:	Zapping plugin that displays teletext informations
-Summary(pl.UTF-8):   Wtyczka Zappinga wyświetlająca strony teletekstowe
+Summary(pl.UTF-8):	Wtyczka Zappinga wyświetlająca strony teletekstowe
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
