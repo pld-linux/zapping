@@ -11,7 +11,7 @@
 
 
 Summary:	A TV viewer for Gnome2
-Summary(pl):	Program do ogl±dania telewizji dla GNOME2
+Summary(pl.UTF-8):   Program do oglÄ…dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.7.0
 Release:	0.%{snap}
@@ -49,14 +49,14 @@ to CDE and KDE, but GNOME is based completely on free software.
 This is a TV viewer for the GNOME desktop. It has all the needed
 features, plus extensibility through a plugin system.
 
-%description -l pl
-Zapping to program do ogl±dania telewizji dla ¶rodowiska GNOME. Ma
-wszystkie potrzebne funkcje oraz oferuje mo¿liwo¶æ rozszerzania
-funkcjonalno¶ci przez system wtyczek (pluginów).
+%description -l pl.UTF-8
+Zapping to program do oglÄ…dania telewizji dla Å›rodowiska GNOME. Ma
+wszystkie potrzebne funkcje oraz oferuje moÅ¼liwoÅ›Ä‡ rozszerzania
+funkcjonalnoÅ›ci przez system wtyczek (pluginÃ³w).
 
 %package alirc-plugin
 Summary:	Another Zapping plugin for infrared control
-Summary(pl):	Kolejna wtyczka Zappingu do kontroli podczerwieni±
+Summary(pl.UTF-8):   Kolejna wtyczka Zappingu do kontroli podczerwieniÄ…
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
@@ -64,13 +64,13 @@ Requires:	%{name} = %{version}
 This package allows you to control Zapping with a LIRC-supported
 remote control.
 
-%description alirc-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
+%description alirc-plugin -l pl.UTF-8
+Ten pakiet pozwala na obsÅ‚ugÄ™ Zappingu pilotem zdalnego sterowania
+obsÅ‚ugiwanym przez LIRC.
 
 %package lirc-plugin
 Summary:	Zapping plugin for infrared control
-Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Summary(pl.UTF-8):   Wtyczka Zappingu do kontroli podczerwieniÄ…
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 Requires:	lirc
@@ -79,13 +79,13 @@ Requires:	lirc
 This package allows you to control Zapping with a LIRC-supported
 remote control.
 
-%description lirc-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
+%description lirc-plugin -l pl.UTF-8
+Ten pakiet pozwala na obsÅ‚ugÄ™ Zappingu pilotem zdalnego sterowania
+obsÅ‚ugiwanym przez LIRC.
 
 %package mpeg-plugin
 Summary:	Zapping plugin for infrared control
-Summary(pl):	Wtyczka Zappingu do kontroli podczerwieni±
+Summary(pl.UTF-8):   Wtyczka Zappingu do kontroli podczerwieniÄ…
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
@@ -93,13 +93,13 @@ Requires:	%{name} = %{version}
 This package allows you to control Zapping with a LIRC-supported
 remote control.
 
-%description mpeg-plugin -l pl
-Ten pakiet pozwala na obs³ugê Zappingu pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
+%description mpeg-plugin -l pl.UTF-8
+Ten pakiet pozwala na obsÅ‚ugÄ™ Zappingu pilotem zdalnego sterowania
+obsÅ‚ugiwanym przez LIRC.
 
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
-Summary(pl):	Wtyczka Zappinga do robienia zrzutów ekranu
+Summary(pl.UTF-8):   Wtyczka Zappinga do robienia zrzutÃ³w ekranu
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}
 
@@ -107,8 +107,8 @@ Requires:	%{name} = %{version}
 You can use this plugin to take screenshots of what you are actually
 watching in TV. It will save the screenshots in JPEG format.
 
-%description screenshot-plugin -l pl
-Ta wtyczka pozwala na zrzucanie aktualnie ogl±danego obrazu
+%description screenshot-plugin -l pl.UTF-8
+Ta wtyczka pozwala na zrzucanie aktualnie oglÄ…danego obrazu
 telewizyjnego do pliku JPEG.
 
 %prep 
