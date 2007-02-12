@@ -3,7 +3,7 @@
 %bcond_without	lirc	# without LIRC support
 #
 Summary:	A TV viewer for GNOME2
-Summary(pl):	Program do ogl±dania telewizji dla GNOME2
+Summary(pl.UTF-8):   Program do oglÄ…dania telewizji dla GNOME2
 Name:		zapping
 Version:	0.9.6
 Release:	2
@@ -49,14 +49,14 @@ to CDE and KDE, but GNOME is based completely on free software.
 This is a TV viewer for the GNOME desktop. It has all the needed
 features, plus extensibility through a plugin system.
 
-%description -l pl
-Zapping to program do ogl±dania telewizji dla ¶rodowiska GNOME. Ma
-wszystkie potrzebne funkcje oraz oferuje mo¿liwo¶æ rozszerzania
-funkcjonalno¶ci przez system wtyczek (pluginów).
+%description -l pl.UTF-8
+Zapping to program do oglÄ…dania telewizji dla Å›rodowiska GNOME. Ma
+wszystkie potrzebne funkcje oraz oferuje moÅ¼liwoÅ›Ä‡ rozszerzania
+funkcjonalnoÅ›ci przez system wtyczek (pluginÃ³w).
 
 %package alirc-plugin
 Summary:	Another Zapping plugin for infrared control
-Summary(pl):	Kolejna wtyczka Zappinga do kontroli podczerwieni±
+Summary(pl.UTF-8):   Kolejna wtyczka Zappinga do kontroli podczerwieniÄ…
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 Requires:	lirc
@@ -66,37 +66,37 @@ Obsoletes:	zapping-lirc-plugin
 This package allows you to control Zapping with a LIRC-supported
 remote control.
 
-%description alirc-plugin -l pl
-Pakiet pozwalaj±cy na obs³ugê Zappinga pilotem zdalnego sterowania
-obs³ugiwanym przez LIRC.
+%description alirc-plugin -l pl.UTF-8
+Pakiet pozwalajÄ…cy na obsÅ‚ugÄ™ Zappinga pilotem zdalnego sterowania
+obsÅ‚ugiwanym przez LIRC.
 
 %package deinterlace-plugin
 Summary:	Zapping plugin that deinterlaces video
-Summary(pl):	Wtyczka Zappinga usuwajÄca przeplot obrazu
+Summary(pl.UTF-8):   Wtyczka Zappinga usuwajÃ„ca przeplot obrazu
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
 %description deinterlace-plugin
 This package allows you to deinterlace TV video.
 
-%description deinterlace-plugin -l pl
-Pakiet pozwalaj±cy na usuniêcie przeplotu obrazu TV.
+%description deinterlace-plugin -l pl.UTF-8
+Pakiet pozwalajÄ…cy na usuniÄ™cie przeplotu obrazu TV.
 
 %package mpeg-plugin
 Summary:	Zapping plugin that saves video in MPEG format
-Summary(pl):	Wtyczka Zappinga do zapisu obrazu w formacie MPEG
+Summary(pl.UTF-8):   Wtyczka Zappinga do zapisu obrazu w formacie MPEG
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
 %description mpeg-plugin
 This package allows you to save video from TV in MPEG format.
 
-%description mpeg-plugin -l pl
-Pakiet pozwalaj±cy na zapis obrazu z TV w formacie MPEG.
+%description mpeg-plugin -l pl.UTF-8
+Pakiet pozwalajÄ…cy na zapis obrazu z TV w formacie MPEG.
 
 %package screenshot-plugin
 Summary:	Zapping plugin for taking screenshots
-Summary(pl):	Wtyczka Zappinga do robienia zrzutów ekranu
+Summary(pl.UTF-8):   Wtyczka Zappinga do robienia zrzutÃ³w ekranu
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
@@ -104,21 +104,21 @@ Requires:	%{name} = %{version}-%{release}
 You can use this plugin to take screenshots of what you are actually
 watching in TV. It will save the screenshots in JPEG format.
 
-%description screenshot-plugin -l pl
-Wtyczka pozwalaj±ca na zapisywanie aktualnie ogl±danego obrazu
+%description screenshot-plugin -l pl.UTF-8
+Wtyczka pozwalajÄ…ca na zapisywanie aktualnie oglÄ…danego obrazu
 telewizyjnego do pliku JPEG.
 
 %package teletext-plugin
 Summary:	Zapping plugin that displays teletext informations
-Summary(pl):	Wtyczka Zappinga wy¶wietlaj±ca strony teletekstowe
+Summary(pl.UTF-8):   Wtyczka Zappinga wyÅ›wietlajÄ…ca strony teletekstowe
 Group:		X11/Applications/Multimedia
 Requires:	%{name} = %{version}-%{release}
 
 %description teletext-plugin
 This package allows you to display teletext pages.
 
-%description teletext-plugin -l pl
-Pakiet pozwalaj±cy na wy¶wietlanie stron z teletekstem.
+%description teletext-plugin -l pl.UTF-8
+Pakiet pozwalajÄ…cy na wyÅ›wietlanie stron z teletekstem.
 
 %prep
 %setup -q
